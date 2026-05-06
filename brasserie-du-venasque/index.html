@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,17 +11,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --noir: #0A0A0A;
-  --noir-doux: #1A1A1A;
-  --or: #F0B414;
-  --or-profond: #DCA014;
-  --blanc: #FFFFFF;
-  --blanc-casse: #FAF7F0;
-  --gris: #4A4A4A;
-  --gris-clair: #B8B5AC;
-  --bordure: #2A2A2A;
+/* ============ THEMING : VARIABLES PAR MODE ============ */
 
+/* Couleurs invariantes (étiquettes bières, etc.) */
+:root {
+  /* Étiquettes bières — restent identiques quel que soit le mode */
   --brams: #E8A82C;
   --bourek: #9DBE5A;
   --mouflon: #A0552B;
@@ -41,9 +35,82 @@
   --automne: #D89020;
   --hiver: #A83828;
 
+  /* Constantes invariantes */
+  --noir-pur: #0A0A0A;
+  --or-pur: #F0B414;
+  --or-profond: #DCA014;
+  --blanc-pur: #FFFFFF;
+  --blanc-casse: #FAF7F0;
+
+  /* Typos */
   --font-display: 'Anton', sans-serif;
   --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Inter', sans-serif;
+}
+
+/* ===== Mode CLAIR (par défaut) ===== */
+:root,
+[data-theme="light"] {
+  --bg-main: #F0B414;             /* Or Pyrénéen — fond principal */
+  --bg-section: #FAF7F0;          /* Blanc cassé — sections alternées */
+  --bg-card: #FFFFFF;             /* Cartes blanches */
+  --bg-card-soft: #FAF7F0;        /* Cartes adoucies */
+  --bg-code: #1A1A1A;             /* Bloc code reste sombre */
+  --bg-banner: #0A0A0A;           /* Bannières restent noires (signature) */
+
+  --text-main: #0A0A0A;           /* Texte principal noir */
+  --text-secondary: #4A4A4A;      /* Texte secondaire gris foncé */
+  --text-muted: #6A6A6A;          /* Texte atténué */
+  --text-on-banner: #FFFFFF;      /* Texte sur bannières noires */
+  --text-on-bg: #0A0A0A;          /* Texte sur fond jaune */
+
+  --accent: #0A0A0A;              /* Accent en noir (sur fond jaune) */
+  --accent-on-section: #DCA014;   /* Accent or sur section claire */
+  --accent-strong: #0A0A0A;
+
+  --border: rgba(10, 10, 10, 0.15);
+  --border-strong: rgba(10, 10, 10, 0.3);
+
+  --shadow-sm: 0 2px 8px rgba(10, 10, 10, 0.06);
+  --shadow-md: 0 8px 24px rgba(10, 10, 10, 0.08);
+  --shadow-lg: 0 16px 48px rgba(10, 10, 10, 0.12);
+
+  /* Bouton primaire en mode clair : noir sur jaune */
+  --btn-primary-bg: #0A0A0A;
+  --btn-primary-text: #F0B414;
+  --btn-primary-hover-bg: #1A1A1A;
+}
+
+/* ===== Mode SOMBRE ===== */
+[data-theme="dark"] {
+  --bg-main: #0A0A0A;
+  --bg-section: #0A0A0A;
+  --bg-card: #1A1A1A;
+  --bg-card-soft: #1A1A1A;
+  --bg-code: #1A1A1A;
+  --bg-banner: #0A0A0A;
+
+  --text-main: #FFFFFF;
+  --text-secondary: #B8B5AC;
+  --text-muted: #888;
+  --text-on-banner: #FFFFFF;
+  --text-on-bg: #FFFFFF;
+
+  --accent: #F0B414;
+  --accent-on-section: #F0B414;
+  --accent-strong: #F0B414;
+
+  --border: #2A2A2A;
+  --border-strong: #3A3A3A;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  /* Bouton primaire en mode sombre : or sur noir */
+  --btn-primary-bg: #F0B414;
+  --btn-primary-text: #0A0A0A;
+  --btn-primary-hover-bg: #DCA014;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,11 +118,59 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  background: var(--noir);
-  color: var(--blanc);
+  background: var(--bg-main);
+  color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
+
+/* Empêcher les transitions trop lourdes au chargement initial */
+body.no-transitions * {
+  transition: none !important;
+}
+
+/* ============ TOGGLE THEME BUTTON ============ */
+.theme-toggle {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  color: var(--text-main);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.08) rotate(15deg);
+  border-color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.4s ease;
+}
+
+/* Affichage soleil ou lune selon le mode */
+[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
 /* ============ HERO ============ */
 .hero {
@@ -65,19 +180,37 @@ body {
   justify-content: center;
   position: relative;
   padding: 4rem 6vw;
-  background:
-    radial-gradient(ellipse at 80% 20%, rgba(240, 180, 20, 0.08) 0%, transparent 50%),
-    var(--noir);
   overflow: hidden;
+  transition: background-color 0.4s ease;
+}
+
+[data-theme="light"] .hero {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(10, 10, 10, 0.06) 0%, transparent 50%),
+    var(--bg-main);
+}
+
+[data-theme="dark"] .hero {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(240, 180, 20, 0.10) 0%, transparent 50%),
+    var(--bg-main);
 }
 
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
+}
+
+[data-theme="light"] .hero::before {
+  background-image:
+    repeating-linear-gradient(135deg, transparent 0, transparent 80px, rgba(0,0,0,0.025) 80px, rgba(0,0,0,0.025) 81px);
+}
+
+[data-theme="dark"] .hero::before {
   background-image:
     repeating-linear-gradient(135deg, transparent 0, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px);
-  pointer-events: none;
 }
 
 .hero-mark {
@@ -85,9 +218,9 @@ body {
   font-size: 0.75rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--or);
+  color: var(--accent);
   margin-bottom: 2rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .hero h1 {
@@ -96,10 +229,11 @@ body {
   line-height: 1.0;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: var(--blanc);
+  color: var(--text-main);
   margin-bottom: 2.5rem;
   position: relative;
   z-index: 2;
+  transition: color 0.4s ease;
 }
 
 .hero h1 span {
@@ -107,7 +241,8 @@ body {
   margin-top: 0.15em;
 }
 
-.hero h1 .accent { color: var(--or); }
+[data-theme="light"] .hero h1 .accent { color: var(--blanc-pur); }
+[data-theme="dark"] .hero h1 .accent { color: var(--or-pur); }
 
 .hero-tagline {
   font-family: var(--font-heading);
@@ -115,10 +250,12 @@ body {
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gris-clair);
   max-width: 600px;
   margin-bottom: 4rem;
 }
+
+[data-theme="light"] .hero-tagline { color: rgba(10,10,10,0.7); }
+[data-theme="dark"] .hero-tagline { color: var(--text-secondary); }
 
 .hero-meta {
   display: flex;
@@ -127,36 +264,43 @@ body {
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gris-clair);
-  border-top: 1px solid var(--bordure);
   padding-top: 2rem;
   flex-wrap: wrap;
+  border-top: 1px solid var(--border-strong);
+  transition: border-color 0.4s ease;
 }
+
+[data-theme="light"] .hero-meta { color: rgba(10,10,10,0.7); }
+[data-theme="dark"] .hero-meta { color: var(--text-secondary); }
 
 .hero-meta span strong {
   display: block;
-  color: var(--blanc);
+  color: var(--text-main);
   font-size: 0.85rem;
   margin-top: 0.5rem;
   font-weight: 700;
 }
 
-/* ============ NAVIGATION ============ */
+/* ============ NAV ============ */
 .nav {
   position: sticky;
   top: 0;
-  background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--bordure);
   z-index: 100;
   padding: 1rem 6vw;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
+
+[data-theme="light"] .nav { background: rgba(240, 180, 20, 0.92); }
+[data-theme="dark"] .nav { background: rgba(10, 10, 10, 0.95); }
 
 .nav-inner {
   display: flex;
   gap: 2rem;
   overflow-x: auto;
   scrollbar-width: none;
+  padding-right: 60px; /* Espace pour le bouton toggle */
 }
 
 .nav-inner::-webkit-scrollbar { display: none; }
@@ -166,23 +310,41 @@ body {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   text-decoration: none;
   white-space: nowrap;
   font-weight: 600;
-  transition: color 0.2s;
+  transition: color 0.2s, border-color 0.2s;
   padding: 0.5rem 0;
   border-bottom: 2px solid transparent;
 }
 
 .nav a:hover {
-  color: var(--or);
-  border-bottom-color: var(--or);
+  color: var(--text-main);
+  border-bottom-color: var(--text-main);
+}
+
+[data-theme="dark"] .nav a:hover {
+  color: var(--or-pur);
+  border-bottom-color: var(--or-pur);
 }
 
 /* ============ SECTIONS ============ */
 section {
   padding: 6rem 6vw;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Sections alternées : certaines en blanc cassé, d'autres en jaune */
+.section-soft {
+  background: var(--bg-section);
+  max-width: none;
+  padding: 6rem 6vw;
+  transition: background-color 0.4s ease;
+}
+
+.section-soft > * {
   max-width: 1600px;
   margin: 0 auto;
 }
@@ -193,14 +355,20 @@ section {
   gap: 2rem;
   margin-bottom: 4rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid var(--bordure);
+  border-bottom: 1px solid var(--border-strong);
+  transition: border-color 0.4s ease;
 }
 
 .section-number {
   font-family: var(--font-display);
   font-size: 4rem;
-  color: var(--or);
+  color: var(--accent);
   line-height: 1;
+  transition: color 0.4s ease;
+}
+
+.section-soft .section-number {
+  color: var(--accent-on-section);
 }
 
 .section-title {
@@ -209,6 +377,7 @@ section {
   line-height: 0.95;
   text-transform: uppercase;
   letter-spacing: 0.005em;
+  color: var(--text-main);
 }
 
 .section-subtitle {
@@ -216,8 +385,8 @@ section {
   font-size: 0.85rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gris-clair);
-  font-weight: 500;
+  color: var(--text-secondary);
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
@@ -229,8 +398,13 @@ section {
 }
 
 .identity-card {
-  border-left: 3px solid var(--or);
+  border-left: 3px solid var(--accent);
   padding-left: 2rem;
+  transition: border-color 0.4s ease;
+}
+
+.section-soft .identity-card {
+  border-left-color: var(--accent-on-section);
 }
 
 .identity-card h3 {
@@ -239,10 +413,11 @@ section {
   text-transform: uppercase;
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
+  color: var(--text-main);
 }
 
 .identity-card p {
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   font-size: 0.95rem;
 }
 
@@ -260,17 +435,17 @@ section {
 }
 
 .logo-intro p {
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   font-size: 1rem;
   line-height: 1.7;
 }
 
-.logo-intro p strong { color: var(--blanc); }
+.logo-intro p strong { color: var(--text-main); }
 
-/* Banner Gotham */
 .gotham-banner {
-  background: linear-gradient(135deg, var(--noir-doux) 0%, var(--noir) 100%);
-  border: 1px solid var(--or);
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-left: 4px solid var(--accent-on-section);
   padding: 1.5rem 2rem;
   margin-bottom: 3rem;
   display: flex;
@@ -278,40 +453,45 @@ section {
   align-items: center;
   flex-wrap: wrap;
   border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .gotham-banner {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-main) 100%);
+  border-left-color: var(--or-pur);
+  border-color: var(--or-pur);
 }
 
 .gotham-banner-icon {
   font-family: var(--font-display);
   font-size: 2.5rem;
-  color: var(--or);
+  color: var(--accent-on-section);
   line-height: 1;
 }
 
-.gotham-banner-text {
-  flex: 1;
-  min-width: 220px;
-}
+[data-theme="dark"] .gotham-banner-icon { color: var(--or-pur); }
+
+.gotham-banner-text { flex: 1; min-width: 220px; }
 
 .gotham-banner-label {
   font-family: var(--font-heading);
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--or);
+  color: var(--accent-on-section);
   font-weight: 700;
   margin-bottom: 0.3rem;
 }
 
+[data-theme="dark"] .gotham-banner-label { color: var(--or-pur); }
+
 .gotham-banner-content {
   font-size: 0.95rem;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
-.gotham-banner-content strong {
-  color: var(--blanc);
-  font-weight: 700;
-}
+.gotham-banner-content strong { color: var(--text-main); font-weight: 700; }
 
 /* Grille des logos */
 .logo-grid {
@@ -322,14 +502,21 @@ section {
 }
 
 .logo-card {
-  background: var(--noir-doux);
-  border: 1px solid var(--bordure);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 
-.logo-card:hover { border-color: var(--or); }
+.logo-card:hover {
+  border-color: var(--accent-on-section);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .logo-card:hover { border-color: var(--or-pur); }
 
 .logo-display {
   padding: 4rem 3rem;
@@ -340,7 +527,7 @@ section {
   position: relative;
 }
 
-.logo-display.dark { background: var(--noir); }
+.logo-display.dark { background: var(--noir-pur); }
 .logo-display.light { background: var(--blanc-casse); }
 
 .logo-display img {
@@ -349,17 +536,12 @@ section {
   display: block;
 }
 
-.logo-display.blason img {
-  max-height: 220px;
-}
-
-.logo-display.classique img {
-  max-height: 130px;
-}
+.logo-display.blason img { max-height: 220px; }
+.logo-display.classique img { max-height: 130px; }
 
 .logo-info {
   padding: 1.5rem 2rem;
-  border-top: 1px solid var(--bordure);
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -374,6 +556,7 @@ section {
   font-size: 1.2rem;
   text-transform: uppercase;
   margin-bottom: 0.2rem;
+  color: var(--text-main);
 }
 
 .logo-info-meta {
@@ -381,7 +564,7 @@ section {
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
@@ -391,8 +574,8 @@ section {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   background: transparent;
-  color: var(--blanc);
-  border: 1px solid var(--bordure);
+  color: var(--text-main);
+  border: 1px solid var(--border-strong);
   padding: 0.6rem 1.1rem;
   cursor: pointer;
   border-radius: 2px;
@@ -403,9 +586,15 @@ section {
 }
 
 .logo-download:hover {
-  background: var(--or);
-  color: var(--noir);
-  border-color: var(--or);
+  background: var(--text-main);
+  color: var(--bg-card);
+  border-color: var(--text-main);
+}
+
+[data-theme="dark"] .logo-download:hover {
+  background: var(--or-pur);
+  color: var(--noir-pur);
+  border-color: var(--or-pur);
 }
 
 .logo-rules {
@@ -416,28 +605,31 @@ section {
 }
 
 .logo-rule {
-  background: var(--noir-doux);
-  border: 1px solid var(--bordure);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   padding: 2rem;
   border-radius: 4px;
+  box-shadow: var(--shadow-sm);
 }
 
 .logo-rule h4 {
   font-family: var(--font-display);
   font-size: 1.1rem;
   text-transform: uppercase;
-  color: var(--or);
+  color: var(--accent-on-section);
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
 
+[data-theme="dark"] .logo-rule h4 { color: var(--or-pur); }
+
 .logo-rule p {
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.6;
 }
 
-.logo-rule strong { color: var(--blanc); }
+.logo-rule strong { color: var(--text-main); }
 
 /* ============ PALETTE ============ */
 .palette-primary {
@@ -454,7 +646,8 @@ section {
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
-  border: 1px solid var(--bordure);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .color-card:hover { transform: translateY(-4px); }
@@ -470,7 +663,6 @@ section {
 
 .color-card.light .color-card-info {
   background: linear-gradient(0deg, rgba(255,255,255,0.95) 0%, transparent 100%);
-  color: var(--noir);
 }
 
 .color-card-name {
@@ -478,19 +670,19 @@ section {
   font-size: 1.4rem;
   text-transform: uppercase;
   margin-bottom: 0.25rem;
-  color: var(--blanc);
+  color: #FFFFFF;
 }
 
-.color-card.light .color-card-name { color: var(--noir); }
+.color-card.light .color-card-name { color: var(--noir-pur); }
 
 .color-card-hex {
   font-family: 'Courier New', monospace;
   font-size: 0.85rem;
-  color: var(--gris-clair);
+  color: rgba(255,255,255,0.85);
   letter-spacing: 0.05em;
 }
 
-.color-card.light .color-card-hex { color: var(--gris); }
+.color-card.light .color-card-hex { color: #4A4A4A; }
 
 .color-card-copy {
   position: absolute;
@@ -507,22 +699,22 @@ section {
   opacity: 0;
   transition: opacity 0.3s;
   font-weight: 600;
-  color: var(--blanc);
+  color: #FFFFFF;
 }
 
 .color-card.light .color-card-copy {
   background: rgba(0,0,0,0.1);
   border-color: rgba(0,0,0,0.2);
-  color: var(--noir);
+  color: var(--noir-pur);
 }
 
 .color-card:hover .color-card-copy { opacity: 1; }
 
 .color-card.copied .color-card-copy {
   opacity: 1;
-  background: var(--or);
-  color: var(--noir);
-  border-color: var(--or);
+  background: var(--or-pur);
+  color: var(--noir-pur);
+  border-color: var(--or-pur);
 }
 
 .beer-grid {
@@ -541,6 +733,7 @@ section {
   display: flex;
   align-items: flex-end;
   padding: 1rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .beer-card:hover { transform: scale(1.04); }
@@ -551,12 +744,12 @@ section {
   font-family: var(--font-display);
   font-size: 1.1rem;
   text-transform: uppercase;
-  color: var(--noir);
+  color: var(--noir-pur);
   line-height: 1;
   margin-bottom: 0.2rem;
 }
 
-.beer-card.dark .beer-name { color: var(--blanc); }
+.beer-card.dark .beer-name { color: #FFFFFF; }
 
 .beer-style {
   font-family: var(--font-heading);
@@ -565,28 +758,29 @@ section {
   text-transform: uppercase;
   font-weight: 600;
   opacity: 0.75;
-  color: var(--noir);
+  color: var(--noir-pur);
 }
 
-.beer-card.dark .beer-style { color: var(--blanc); }
+.beer-card.dark .beer-style { color: #FFFFFF; }
 
 .beer-hex {
   font-family: 'Courier New', monospace;
   font-size: 0.7rem;
   margin-top: 0.5rem;
   opacity: 0.6;
-  color: var(--noir);
+  color: var(--noir-pur);
 }
 
-.beer-card.dark .beer-hex { color: var(--blanc); }
+.beer-card.dark .beer-hex { color: #FFFFFF; }
 
 /* ============ TYPOGRAPHIES ============ */
 .typo-block {
-  background: var(--noir-doux);
-  border: 1px solid var(--bordure);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   padding: 3rem 2.5rem;
   margin-bottom: 2rem;
   border-radius: 4px;
+  box-shadow: var(--shadow-sm);
 }
 
 .typo-label {
@@ -603,14 +797,16 @@ section {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--or);
+  color: var(--accent-on-section);
   font-weight: 700;
 }
+
+[data-theme="dark"] .typo-label-name { color: var(--or-pur); }
 
 .typo-label-meta {
   font-family: 'Courier New', monospace;
   font-size: 0.75rem;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
 }
 
 .typo-display {
@@ -619,7 +815,7 @@ section {
   line-height: 1.0;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: var(--blanc);
+  color: var(--text-main);
   margin-bottom: 0.5rem;
 }
 
@@ -629,7 +825,7 @@ section {
   font-size: clamp(1.4rem, 3vw, 2rem);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--blanc);
+  color: var(--text-main);
   margin-bottom: 0.5rem;
 }
 
@@ -637,7 +833,7 @@ section {
   font-family: var(--font-body);
   font-size: 1.1rem;
   line-height: 1.7;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   max-width: 700px;
 }
 
@@ -652,36 +848,42 @@ section {
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--or);
+  color: var(--accent-on-section);
   text-align: left;
   padding: 0.75rem 0;
-  border-bottom: 1px solid var(--bordure);
+  border-bottom: 1px solid var(--border-strong);
   font-weight: 700;
 }
 
+[data-theme="dark"] .typo-scale-table th { color: var(--or-pur); }
+
 .typo-scale-table td {
   padding: 0.75rem 0;
-  border-bottom: 1px solid var(--bordure);
+  border-bottom: 1px solid var(--border);
   font-size: 0.9rem;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
 }
 
 .typo-scale-table td:first-child {
-  color: var(--blanc);
+  color: var(--text-main);
   font-weight: 500;
 }
 
-/* Note Gotham dans la section typo */
 .typo-note-gotham {
-  background: rgba(240, 180, 20, 0.08);
-  border-left: 3px solid var(--or);
+  background: rgba(220, 160, 20, 0.1);
+  border-left: 3px solid var(--accent-on-section);
   padding: 1.5rem 2rem;
   margin-bottom: 2rem;
   border-radius: 0 4px 4px 0;
 }
 
-.typo-note-gotham strong {
-  color: var(--or);
+[data-theme="dark"] .typo-note-gotham {
+  background: rgba(240, 180, 20, 0.08);
+  border-left-color: var(--or-pur);
+}
+
+.typo-note-gotham > strong {
+  color: var(--accent-on-section);
   font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -691,20 +893,17 @@ section {
   margin-bottom: 0.5rem;
 }
 
+[data-theme="dark"] .typo-note-gotham > strong { color: var(--or-pur); }
+
 .typo-note-gotham p {
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
 .typo-note-gotham p strong {
-  display: inline;
-  color: var(--blanc);
-  font-family: inherit;
-  font-size: inherit;
-  text-transform: none;
-  letter-spacing: normal;
-  margin-bottom: 0;
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 /* ============ COMPOSANTS ============ */
@@ -715,10 +914,11 @@ section {
 }
 
 .component-card {
-  background: var(--noir-doux);
-  border: 1px solid var(--bordure);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   padding: 2rem;
   border-radius: 4px;
+  box-shadow: var(--shadow-sm);
 }
 
 .component-label {
@@ -726,10 +926,12 @@ section {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--or);
+  color: var(--accent-on-section);
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
+
+[data-theme="dark"] .component-label { color: var(--or-pur); }
 
 .component-preview {
   background: var(--blanc-casse);
@@ -744,8 +946,13 @@ section {
   min-height: 180px;
 }
 
+[data-theme="dark"] .component-preview {
+  background: var(--noir-pur);
+  border: 1px solid var(--border);
+}
+
 .label-banner {
-  background: var(--noir);
+  background: var(--noir-pur);
   padding: 1.25rem 2rem;
   width: 100%;
   text-align: center;
@@ -755,7 +962,7 @@ section {
 .label-banner-name {
   font-family: var(--font-display);
   font-size: 2rem;
-  color: var(--blanc);
+  color: #FFFFFF;
   text-transform: uppercase;
   line-height: 1;
   letter-spacing: 0.02em;
@@ -764,7 +971,7 @@ section {
 .label-banner-style {
   font-family: var(--font-heading);
   font-size: 0.75rem;
-  color: var(--gris-clair);
+  color: rgba(255,255,255,0.7);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 500;
@@ -786,11 +993,33 @@ section {
   border-radius: 2px;
 }
 
-.btn-primary { background: var(--or); color: var(--noir); }
-.btn-primary:hover { background: var(--or-profond); transform: translateY(-2px); }
-.btn-secondary { background: transparent; color: var(--noir); border: 2px solid var(--noir); }
-.btn-secondary:hover { background: var(--noir); color: var(--blanc); }
-.btn-ghost { background: transparent; color: var(--noir); text-decoration: underline; text-underline-offset: 4px; }
+.btn-primary {
+  background: var(--noir-pur);
+  color: var(--or-pur);
+}
+
+.btn-primary:hover {
+  background: #1A1A1A;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--noir-pur);
+  border: 2px solid var(--noir-pur);
+}
+
+.btn-secondary:hover {
+  background: var(--noir-pur);
+  color: #FFFFFF;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--noir-pur);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 
 .luchon-tag {
   font-family: var(--font-heading);
@@ -798,14 +1027,14 @@ section {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--noir);
-  border: 1px solid var(--noir);
+  color: var(--noir-pur);
+  border: 1px solid var(--noir-pur);
   padding: 0.6rem 1.2rem;
   display: inline-block;
 }
 
 .product-card {
-  background: var(--noir);
+  background: var(--noir-pur);
   padding: 1.5rem;
   border-radius: 3px;
   width: 100%;
@@ -840,8 +1069,8 @@ section {
 .product-card-label-text {
   font-family: var(--font-display);
   font-size: 0.55rem;
-  color: var(--blanc);
-  background: var(--noir);
+  color: #FFFFFF;
+  background: var(--noir-pur);
   padding: 1px 6px;
   border-radius: 1px;
 }
@@ -849,14 +1078,14 @@ section {
 .product-card-name {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  color: var(--blanc);
+  color: #FFFFFF;
   text-transform: uppercase;
 }
 
 .product-card-meta {
   font-family: var(--font-heading);
   font-size: 0.7rem;
-  color: var(--or);
+  color: var(--or-pur);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-top: 0.3rem;
@@ -865,7 +1094,7 @@ section {
 
 .component-desc {
   font-size: 0.9rem;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   font-family: var(--font-body);
 }
 
@@ -874,8 +1103,8 @@ section {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2.8rem);
   line-height: 1.2;
-  color: var(--blanc);
-  border-left: 4px solid var(--or);
+  color: var(--text-main);
+  border-left: 4px solid var(--accent);
   padding-left: 2rem;
   margin: 2rem 0;
   font-weight: 400;
@@ -895,17 +1124,23 @@ section {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0.5rem 1rem;
-  background: var(--noir-doux);
-  border: 1px solid var(--bordure);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 100px;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
 .voice-tag.primary {
-  background: var(--or);
-  color: var(--noir);
-  border-color: var(--or);
+  background: var(--noir-pur);
+  color: var(--or-pur);
+  border-color: var(--noir-pur);
+}
+
+[data-theme="dark"] .voice-tag.primary {
+  background: var(--or-pur);
+  color: var(--noir-pur);
+  border-color: var(--or-pur);
 }
 
 /* ============ DO/DON'T ============ */
@@ -918,11 +1153,20 @@ section {
 .dodont-card {
   padding: 2rem;
   border-radius: 4px;
-  border: 1px solid var(--bordure);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
 }
 
-.dodont-card.do { background: rgba(30, 145, 112, 0.08); border-color: rgba(30, 145, 112, 0.3); }
-.dodont-card.dont { background: rgba(232, 78, 27, 0.08); border-color: rgba(232, 78, 27, 0.3); }
+.dodont-card.do {
+  background: rgba(30, 145, 112, 0.08);
+  border-color: rgba(30, 145, 112, 0.4);
+}
+
+.dodont-card.dont {
+  background: rgba(232, 78, 27, 0.08);
+  border-color: rgba(232, 78, 27, 0.4);
+}
 
 .dodont-title {
   font-family: var(--font-display);
@@ -934,27 +1178,30 @@ section {
   gap: 0.75rem;
 }
 
-.dodont-title.do { color: #4FBE8E; }
+.dodont-title.do { color: #2E8060; }
 .dodont-title.dont { color: var(--aigle); }
+
+[data-theme="dark"] .dodont-title.do { color: #4FBE8E; }
 
 .dodont-list { list-style: none; }
 
 .dodont-list li {
   padding: 0.6rem 0;
-  border-bottom: 1px solid var(--bordure);
+  border-bottom: 1px solid var(--border);
   font-size: 0.9rem;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
 }
 
 .dodont-list li:last-child { border-bottom: none; }
 
 /* ============ CSS VARS ============ */
 .code-block {
-  background: var(--noir-doux);
-  border: 1px solid var(--bordure);
+  background: var(--bg-code);
+  border: 1px solid var(--border-strong);
   border-radius: 4px;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
 .code-header {
@@ -962,8 +1209,8 @@ section {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--bordure);
-  background: var(--noir);
+  border-bottom: 1px solid #2A2A2A;
+  background: #0A0A0A;
 }
 
 .code-header span {
@@ -971,7 +1218,7 @@ section {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--or);
+  color: var(--or-pur);
   font-weight: 700;
 }
 
@@ -981,8 +1228,8 @@ section {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   background: transparent;
-  color: var(--blanc);
-  border: 1px solid var(--bordure);
+  color: #FFFFFF;
+  border: 1px solid #2A2A2A;
   padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 2px;
@@ -990,8 +1237,8 @@ section {
   transition: all 0.2s;
 }
 
-.code-copy-btn:hover { background: var(--or); color: var(--noir); border-color: var(--or); }
-.code-copy-btn.copied { background: #1E9170; color: var(--blanc); border-color: #1E9170; }
+.code-copy-btn:hover { background: var(--or-pur); color: var(--noir-pur); border-color: var(--or-pur); }
+.code-copy-btn.copied { background: #1E9170; color: #FFFFFF; border-color: #1E9170; }
 
 .code-block pre {
   padding: 1.5rem;
@@ -999,19 +1246,21 @@ section {
   font-family: 'Courier New', Consolas, monospace;
   font-size: 0.85rem;
   line-height: 1.6;
-  color: var(--gris-clair);
+  color: #B8B5AC;
 }
 
 .code-block pre .token-comment { color: #6A9955; }
-.code-block pre .token-var { color: var(--or); }
+.code-block pre .token-var { color: var(--or-pur); }
 .code-block pre .token-value { color: #CE9178; }
 
 /* ============ FOOTER ============ */
 footer {
-  border-top: 1px solid var(--bordure);
+  border-top: 1px solid var(--border-strong);
   padding: 4rem 6vw;
   text-align: center;
-  color: var(--gris-clair);
+  color: var(--text-secondary);
+  background: var(--bg-main);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 footer .footer-logo {
@@ -1025,12 +1274,14 @@ footer p {
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
 footer p + p {
   margin-top: 0.5rem;
-  color: var(--gris);
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 /* ============ TOAST ============ */
@@ -1039,8 +1290,8 @@ footer p + p {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: var(--or);
-  color: var(--noir);
+  background: var(--noir-pur);
+  color: var(--or-pur);
   padding: 1rem 2rem;
   border-radius: 2px;
   font-family: var(--font-heading);
@@ -1050,24 +1301,50 @@ footer p + p {
   font-weight: 700;
   z-index: 1000;
   transition: transform 0.3s ease;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .toast {
+  background: var(--or-pur);
+  color: var(--noir-pur);
 }
 
 .toast.visible { transform: translateX(-50%) translateY(0); }
 
 @media (max-width: 768px) {
-  section { padding: 4rem 5vw; }
+  section, .section-soft { padding: 4rem 5vw; }
   .hero { padding: 3rem 5vw; }
   .section-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
   .hero-meta { gap: 1.5rem; }
+  .theme-toggle { top: 0.75rem; right: 0.75rem; }
 }
 </style>
 </head>
-<body>
+<body class="no-transitions">
+
+<!-- ============ THEME TOGGLE ============ -->
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Changer de thème" title="Changer de thème">
+  <!-- Lune (visible en mode clair, pour passer en mode sombre) -->
+  <svg class="icon-moon" viewBox="0 0 24 24">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+  <!-- Soleil (visible en mode sombre, pour passer en mode clair) -->
+  <svg class="icon-sun" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+</button>
 
 <!-- ============ HERO ============ -->
 <header class="hero">
-  <div class="hero-mark">⛰ Design System v1.2 — Mai 2026</div>
+  <div class="hero-mark">⛰ Design System v1.3 — Mai 2026</div>
   <h1>
     <span>Brasserie</span>
     <span>du</span>
@@ -1096,7 +1373,7 @@ footer p + p {
   </div>
 </nav>
 
-<!-- ============ 01 IDENTITÉ ============ -->
+<!-- ============ 01 IDENTITÉ ============ (sur fond jaune) -->
 <section id="identite">
   <div class="section-header">
     <div class="section-number">01</div>
@@ -1123,116 +1400,104 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 02 LOGOS ============ -->
-<section id="logos">
-  <div class="section-header">
-    <div class="section-number">02</div>
-    <h2 class="section-title">Logos &<br>marques</h2>
-  </div>
-
-  <div class="logo-intro">
-    <div class="section-subtitle">L'identité visuelle</div>
-    <p>Le logo de la Brasserie du Vénasque combine trois éléments signature : <strong>les trois sommets pyrénéens stylisés</strong> (le Vénasque et les sommets qui dominent la brasserie), <strong>le nom de la marque</strong> en typographie Gotham Bold, et <strong>la goutte d'eau</strong> sur le blason (rappel de l'eau de source de Montauban-de-Luchon, matière première signature). Deux versions sont disponibles : le blason (forme d'écu, version compacte signature) et le logo classique (version verticale, plus lisible en grand format).</p>
-  </div>
-
-  <div class="gotham-banner">
-    <div class="gotham-banner-icon">Aa</div>
-    <div class="gotham-banner-text">
-      <div class="gotham-banner-label">Typographie officielle du logo</div>
-      <div class="gotham-banner-content">La typographie utilisée pour <strong>BRASSERIE DU VÉNASQUE</strong> est <strong>Gotham Bold</strong> (Hoefler & Co.). Police propriétaire payante, à utiliser uniquement sur les fichiers source du logo. Pour les supports web et internes, utiliser <strong>Montserrat</strong> ou <strong>Poppins</strong> en alternative gratuite (proches visuellement).</div>
+<!-- ============ 02 LOGOS ============ (sur fond clair / blanc cassé) -->
+<div class="section-soft">
+  <section id="logos">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <h2 class="section-title">Logos &<br>marques</h2>
     </div>
-  </div>
 
-  <!-- Les 4 versions de logo -->
-  <div class="logo-grid">
+    <div class="logo-intro">
+      <div class="section-subtitle">L'identité visuelle</div>
+      <p>Le logo de la Brasserie du Vénasque combine trois éléments signature : <strong>les trois sommets pyrénéens stylisés</strong> (le Vénasque et les sommets qui dominent la brasserie), <strong>le nom de la marque</strong> en typographie Gotham Bold, et <strong>la goutte d'eau</strong> sur le blason (rappel de l'eau de source de Montauban-de-Luchon, matière première signature). Deux versions sont disponibles : le blason (forme d'écu, version compacte signature) et le logo classique (version verticale, plus lisible en grand format).</p>
+    </div>
 
-    <!-- Blason fond noir -->
-    <div class="logo-card">
-      <div class="logo-display dark blason">
-        <img src="logos/logo-blason-blanc-transparent.png" alt="Logo blason Brasserie du Vénasque - version blanche">
+    <div class="gotham-banner">
+      <div class="gotham-banner-icon">Aa</div>
+      <div class="gotham-banner-text">
+        <div class="gotham-banner-label">Typographie officielle du logo</div>
+        <div class="gotham-banner-content">La typographie utilisée pour <strong>BRASSERIE DU VÉNASQUE</strong> est <strong>Gotham Bold</strong> (Hoefler & Co.). Police propriétaire payante, à utiliser uniquement sur les fichiers source du logo. Pour les supports web et internes, utiliser <strong>Montserrat</strong> ou <strong>Poppins</strong> en alternative gratuite (proches visuellement).</div>
       </div>
-      <div class="logo-info">
-        <div class="logo-info-text">
-          <div class="logo-info-name">Blason — Version blanche</div>
-          <div class="logo-info-meta">Sur fond noir / sombre · usage principal PLV</div>
+    </div>
+
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-display dark blason">
+          <img src="logos/logo-blason-blanc-transparent.png" alt="Logo blason Brasserie du Vénasque - version blanche">
         </div>
-        <a href="logos/logo-blason-blanc-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
-      </div>
-    </div>
-
-    <!-- Blason fond clair -->
-    <div class="logo-card">
-      <div class="logo-display light blason">
-        <img src="logos/logo-blason-noir-transparent.png" alt="Logo blason Brasserie du Vénasque - version noire">
-      </div>
-      <div class="logo-info">
-        <div class="logo-info-text">
-          <div class="logo-info-name">Blason — Version noire</div>
-          <div class="logo-info-meta">Sur fond clair · papier, factures, documents</div>
+        <div class="logo-info">
+          <div class="logo-info-text">
+            <div class="logo-info-name">Blason — Version blanche</div>
+            <div class="logo-info-meta">Sur fond noir / sombre · usage principal PLV</div>
+          </div>
+          <a href="logos/logo-blason-blanc-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
         </div>
-        <a href="logos/logo-blason-noir-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
       </div>
-    </div>
 
-    <!-- Classique fond noir -->
-    <div class="logo-card">
-      <div class="logo-display dark classique">
-        <img src="logos/logo-classique-blanc-transparent.png" alt="Logo classique Brasserie du Vénasque - version blanche">
-      </div>
-      <div class="logo-info">
-        <div class="logo-info-text">
-          <div class="logo-info-name">Classique — Version blanche</div>
-          <div class="logo-info-meta">Sur fond noir · header site web, packaging</div>
+      <div class="logo-card">
+        <div class="logo-display light blason">
+          <img src="logos/logo-blason-noir-transparent.png" alt="Logo blason Brasserie du Vénasque - version noire">
         </div>
-        <a href="logos/logo-classique-blanc-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
-      </div>
-    </div>
-
-    <!-- Classique fond clair -->
-    <div class="logo-card">
-      <div class="logo-display light classique">
-        <img src="logos/logo-classique-noir-transparent.png" alt="Logo classique Brasserie du Vénasque - version noire">
-      </div>
-      <div class="logo-info">
-        <div class="logo-info-text">
-          <div class="logo-info-name">Classique — Version noire</div>
-          <div class="logo-info-meta">Sur fond clair · papier en-tête, supports print</div>
+        <div class="logo-info">
+          <div class="logo-info-text">
+            <div class="logo-info-name">Blason — Version noire</div>
+            <div class="logo-info-meta">Sur fond clair · papier, factures, documents</div>
+          </div>
+          <a href="logos/logo-blason-noir-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
         </div>
-        <a href="logos/logo-classique-noir-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
+      </div>
+
+      <div class="logo-card">
+        <div class="logo-display dark classique">
+          <img src="logos/logo-classique-blanc-transparent.png" alt="Logo classique Brasserie du Vénasque - version blanche">
+        </div>
+        <div class="logo-info">
+          <div class="logo-info-text">
+            <div class="logo-info-name">Classique — Version blanche</div>
+            <div class="logo-info-meta">Sur fond noir · header site web, packaging</div>
+          </div>
+          <a href="logos/logo-classique-blanc-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
+        </div>
+      </div>
+
+      <div class="logo-card">
+        <div class="logo-display light classique">
+          <img src="logos/logo-classique-noir-transparent.png" alt="Logo classique Brasserie du Vénasque - version noire">
+        </div>
+        <div class="logo-info">
+          <div class="logo-info-text">
+            <div class="logo-info-name">Classique — Version noire</div>
+            <div class="logo-info-meta">Sur fond clair · papier en-tête, supports print</div>
+          </div>
+          <a href="logos/logo-classique-noir-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
+        </div>
       </div>
     </div>
 
-  </div>
+    <div class="section-subtitle" style="margin-top: 4rem;">Règles d'usage</div>
+    <div class="logo-rules">
+      <div class="logo-rule">
+        <h4>Zone de protection</h4>
+        <p>Conserver autour du logo une zone vide équivalente à <strong>la hauteur des montagnes</strong>. Aucun élément graphique ou texte ne doit empiéter sur cette zone.</p>
+      </div>
+      <div class="logo-rule">
+        <h4>Tailles minimales</h4>
+        <p><strong>Web :</strong> 80 px de large minimum pour le blason, 200 px pour le classique.<br><strong>Print :</strong> 25 mm de large minimum pour le blason, 60 mm pour le classique.</p>
+      </div>
+      <div class="logo-rule">
+        <h4>Format préféré</h4>
+        <p><strong>Blason</strong> : usage signature, étiquettes, packaging compact, favicons, réseaux sociaux. <br><strong>Classique</strong> : header site, papier en-tête, signatures email, supports verticaux.</p>
+      </div>
+      <div class="logo-rule">
+        <h4>Ce qu'il ne faut pas faire</h4>
+        <p>Ne pas <strong>déformer</strong>, <strong>recolorer</strong> avec d'autres couleurs que blanc/noir, <strong>ajouter d'effets</strong> (ombre, biseau, dégradé), ni <strong>incliner</strong> le logo. Toujours utiliser les fichiers officiels.</p>
+      </div>
+    </div>
+  </section>
+</div>
 
-  <!-- Règles d'usage -->
-  <div class="section-subtitle" style="margin-top: 4rem;">Règles d'usage</div>
-  <div class="logo-rules">
-    <div class="logo-rule">
-      <h4>Zone de protection</h4>
-      <p>Conserver autour du logo une zone vide équivalente à <strong>la hauteur des montagnes</strong>. Aucun élément graphique ou texte ne doit empiéter sur cette zone.</p>
-    </div>
-    <div class="logo-rule">
-      <h4>Tailles minimales</h4>
-      <p><strong>Web :</strong> 80 px de large minimum pour le blason, 200 px pour le classique.<br><strong>Print :</strong> 25 mm de large minimum pour le blason, 60 mm pour le classique.</p>
-    </div>
-    <div class="logo-rule">
-      <h4>Format préféré</h4>
-      <p><strong>Blason</strong> : usage signature, étiquettes, packaging compact, favicons, réseaux sociaux. <br><strong>Classique</strong> : header site, papier en-tête, signatures email, supports verticaux.</p>
-    </div>
-    <div class="logo-rule">
-      <h4>Ce qu'il ne faut pas faire</h4>
-      <p>Ne pas <strong>déformer</strong>, <strong>recolorer</strong> avec d'autres couleurs que blanc/noir, <strong>ajouter d'effets</strong> (ombre, biseau, dégradé), ni <strong>incliner</strong> le logo. Toujours utiliser les fichiers officiels.</p>
-    </div>
-  </div>
-
-  <!-- Note source -->
-  <div style="margin-top: 3rem; padding: 1.5rem 2rem; background: rgba(255,255,255,0.03); border-radius: 4px; border: 1px dashed var(--bordure);">
-    <p style="font-family: var(--font-heading); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or); font-weight: 700; margin-bottom: 0.5rem;">Fichiers source</p>
-    <p style="color: var(--gris-clair); font-size: 0.9rem; line-height: 1.6;">Les fichiers <strong style="color:var(--blanc)">.eps</strong> et <strong style="color:var(--blanc)">.ai</strong> en CMJN haute définition sont conservés en interne pour les besoins d'impression professionnelle. Les versions PNG ci-dessus (à fond transparent) sont destinées aux usages web et bureautique. Pour toute reprise sur supports print, utiliser les fichiers source vectoriels via le studio graphique partenaire.</p>
-  </div>
-</section>
-
-<!-- ============ 03 PALETTE ============ -->
+<!-- ============ 03 PALETTE ============ (sur fond jaune) -->
 <section id="palette">
   <div class="section-header">
     <div class="section-number">03</div>
@@ -1304,62 +1569,64 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 04 TYPOGRAPHIES ============ -->
-<section id="typo">
-  <div class="section-header">
-    <div class="section-number">04</div>
-    <h2 class="section-title">Typo-<br>graphies</h2>
-  </div>
-
-  <div class="typo-note-gotham">
-    <strong>⚠ Note importante</strong>
-    <p>La typographie officielle utilisée sur le logo et les étiquettes de la Brasserie du Vénasque est <strong>Gotham Bold</strong> (Hoefler & Co., police propriétaire). Pour les supports web et internes, on utilise les alternatives gratuites <strong>Anton</strong>, <strong>Montserrat</strong> et <strong>Inter</strong>. Pour les supports print officiels, contacter le studio graphique partenaire qui dispose de la licence Gotham.</p>
-  </div>
-
-  <div class="typo-block">
-    <div class="typo-label">
-      <span class="typo-label-name">Display · Titres principaux</span>
-      <span class="typo-label-meta">ANTON / 700 / UPPERCASE</span>
+<!-- ============ 04 TYPOGRAPHIES ============ (sur fond clair) -->
+<div class="section-soft">
+  <section id="typo">
+    <div class="section-header">
+      <div class="section-number">04</div>
+      <h2 class="section-title">Typo-<br>graphies</h2>
     </div>
-    <div class="typo-display">Bières<br>Pyrénéennes</div>
-    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Sans-serif condensée géométrique. Utilisée pour les titres impactants : H1, H2, accroches, noms de bières.</p>
-  </div>
 
-  <div class="typo-block">
-    <div class="typo-label">
-      <span class="typo-label-name">Heading · Sous-titres et labels</span>
-      <span class="typo-label-meta">MONTSERRAT / 600 / UPPERCASE</span>
+    <div class="typo-note-gotham">
+      <strong>⚠ Note importante</strong>
+      <p>La typographie officielle utilisée sur le logo et les étiquettes de la Brasserie du Vénasque est <strong>Gotham Bold</strong> (Hoefler & Co., police propriétaire). Pour les supports web et internes, on utilise les alternatives gratuites <strong>Anton</strong>, <strong>Montserrat</strong> et <strong>Inter</strong>. Pour les supports print officiels, contacter le studio graphique partenaire qui dispose de la licence Gotham.</p>
     </div>
-    <div class="typo-heading">Bière Ambrée Houblonnée — Pays de Luchon</div>
-    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Alternative web la plus proche de Gotham Bold. Pour les sous-titres, mentions, labels de boutons, navigation.</p>
-  </div>
 
-  <div class="typo-block">
-    <div class="typo-label">
-      <span class="typo-label-name">Body · Texte courant</span>
-      <span class="typo-label-meta">INTER / 400 / SENTENCE CASE</span>
+    <div class="typo-block">
+      <div class="typo-label">
+        <span class="typo-label-name">Display · Titres principaux</span>
+        <span class="typo-label-meta">ANTON / 700 / UPPERCASE</span>
+      </div>
+      <div class="typo-display">Bières<br>Pyrénéennes</div>
+      <p style="color:var(--text-secondary);font-size:0.9rem;max-width:600px;">Sans-serif condensée géométrique. Utilisée pour les titres impactants : H1, H2, accroches, noms de bières.</p>
     </div>
-    <p class="typo-body">Brassée à l'eau de source du village de Montauban-de-Luchon, la gamme de bières de la Brasserie du Vénasque arbore fièrement les animaux locaux sur ses étiquettes en rappel de la richesse de la faune pyrénéenne. Chaque produit est le fruit d'une passion pour l'authenticité et la créativité.</p>
-  </div>
 
-  <table class="typo-scale-table">
-    <thead>
-      <tr><th>Élément</th><th>Police web</th><th>Police print officielle</th><th>Poids</th><th>Desktop</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Logo / branding</td><td>Montserrat 800</td><td>Gotham Bold</td><td>700-800</td><td>—</td></tr>
-      <tr><td>H1</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>64px</td></tr>
-      <tr><td>H2</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>48px</td></tr>
-      <tr><td>H3</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>32px</td></tr>
-      <tr><td>Sous-titre / H4</td><td>Montserrat</td><td>Gotham Book</td><td>600</td><td>20px</td></tr>
-      <tr><td>Corps</td><td>Inter</td><td>Gotham Book</td><td>400</td><td>16px</td></tr>
-      <tr><td>Légende</td><td>Inter</td><td>Gotham Book</td><td>400</td><td>14px</td></tr>
-      <tr><td>Bouton CTA</td><td>Montserrat</td><td>Gotham Bold</td><td>700</td><td>16px</td></tr>
-    </tbody>
-  </table>
-</section>
+    <div class="typo-block">
+      <div class="typo-label">
+        <span class="typo-label-name">Heading · Sous-titres et labels</span>
+        <span class="typo-label-meta">MONTSERRAT / 600 / UPPERCASE</span>
+      </div>
+      <div class="typo-heading">Bière Ambrée Houblonnée — Pays de Luchon</div>
+      <p style="color:var(--text-secondary);font-size:0.9rem;max-width:600px;">Alternative web la plus proche de Gotham Bold. Pour les sous-titres, mentions, labels de boutons, navigation.</p>
+    </div>
 
-<!-- ============ 05 COMPOSANTS ============ -->
+    <div class="typo-block">
+      <div class="typo-label">
+        <span class="typo-label-name">Body · Texte courant</span>
+        <span class="typo-label-meta">INTER / 400 / SENTENCE CASE</span>
+      </div>
+      <p class="typo-body">Brassée à l'eau de source du village de Montauban-de-Luchon, la gamme de bières de la Brasserie du Vénasque arbore fièrement les animaux locaux sur ses étiquettes en rappel de la richesse de la faune pyrénéenne. Chaque produit est le fruit d'une passion pour l'authenticité et la créativité.</p>
+    </div>
+
+    <table class="typo-scale-table">
+      <thead>
+        <tr><th>Élément</th><th>Police web</th><th>Police print officielle</th><th>Poids</th><th>Desktop</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Logo / branding</td><td>Montserrat 800</td><td>Gotham Bold</td><td>700-800</td><td>—</td></tr>
+        <tr><td>H1</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>64px</td></tr>
+        <tr><td>H2</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>48px</td></tr>
+        <tr><td>H3</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>32px</td></tr>
+        <tr><td>Sous-titre / H4</td><td>Montserrat</td><td>Gotham Book</td><td>600</td><td>20px</td></tr>
+        <tr><td>Corps</td><td>Inter</td><td>Gotham Book</td><td>400</td><td>16px</td></tr>
+        <tr><td>Légende</td><td>Inter</td><td>Gotham Book</td><td>400</td><td>14px</td></tr>
+        <tr><td>Bouton CTA</td><td>Montserrat</td><td>Gotham Bold</td><td>700</td><td>16px</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<!-- ============ 05 COMPOSANTS ============ (sur fond jaune) -->
 <section id="composants">
   <div class="section-header">
     <div class="section-number">05</div>
@@ -1414,64 +1681,66 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 06 TON DE VOIX ============ -->
-<section id="voix">
-  <div class="section-header">
-    <div class="section-number">06</div>
-    <h2 class="section-title">Ton<br>de voix</h2>
-  </div>
+<!-- ============ 06 TON DE VOIX ============ (sur fond clair) -->
+<div class="section-soft">
+  <section id="voix">
+    <div class="section-header">
+      <div class="section-number">06</div>
+      <h2 class="section-title">Ton<br>de voix</h2>
+    </div>
 
-  <p class="voice-quote">
-    "Chaleureux, sincère, sans prétention. On parle comme on accueillerait un randonneur qui pousse la porte de la boutique après une journée en montagne."
-  </p>
+    <p class="voice-quote">
+      "Chaleureux, sincère, sans prétention. On parle comme on accueillerait un randonneur qui pousse la porte de la boutique après une journée en montagne."
+    </p>
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;margin-top:4rem;">
-    <div>
-      <div class="section-subtitle">Vocabulaire signature</div>
-      <div class="voice-tags">
-        <span class="voice-tag primary">Pays de Luchon</span>
-        <span class="voice-tag">Au cœur des Pyrénées</span>
-        <span class="voice-tag">Eau de source</span>
-        <span class="voice-tag">Faune pyrénéenne</span>
-        <span class="voice-tag">Artisanale</span>
-        <span class="voice-tag">Savoir-faire</span>
-        <span class="voice-tag">Refuge</span>
-        <span class="voice-tag">Après l'effort</span>
-        <span class="voice-tag">Convivialité</span>
-        <span class="voice-tag">Terroir</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;margin-top:4rem;">
+      <div>
+        <div class="section-subtitle">Vocabulaire signature</div>
+        <div class="voice-tags">
+          <span class="voice-tag primary">Pays de Luchon</span>
+          <span class="voice-tag">Au cœur des Pyrénées</span>
+          <span class="voice-tag">Eau de source</span>
+          <span class="voice-tag">Faune pyrénéenne</span>
+          <span class="voice-tag">Artisanale</span>
+          <span class="voice-tag">Savoir-faire</span>
+          <span class="voice-tag">Refuge</span>
+          <span class="voice-tag">Après l'effort</span>
+          <span class="voice-tag">Convivialité</span>
+          <span class="voice-tag">Terroir</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-subtitle">À éviter absolument</div>
+        <div class="voice-tags">
+          <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Venasque (Vaucluse)</span>
+          <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Provence</span>
+          <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Lavande</span>
+          <span class="voice-tag">Ton corporate</span>
+          <span class="voice-tag">Jargon élitiste</span>
+          <span class="voice-tag">Marketing creux</span>
+        </div>
       </div>
     </div>
 
-    <div>
-      <div class="section-subtitle">À éviter absolument</div>
-      <div class="voice-tags">
-        <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Venasque (Vaucluse)</span>
-        <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Provence</span>
-        <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Lavande</span>
-        <span class="voice-tag">Ton corporate</span>
-        <span class="voice-tag">Jargon élitiste</span>
-        <span class="voice-tag">Marketing creux</span>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:4rem;">
+      <div class="component-card">
+        <div class="component-label">B2C Particuliers</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">Complice, chaleureux, saisonnier. Newsletters mensuelles, posts réseaux, boutique.</p>
+      </div>
+      <div class="component-card">
+        <div class="component-label">B2B Pros (CHR, cavistes)</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">Structuré, utile, factuel. Newsletters bimensuelles, dispo fûts, animations.</p>
+      </div>
+      <div class="component-card">
+        <div class="component-label">Prospection</div>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">Accrocheur, valorise le local et la qualité. Cavistes indépendants, CHR taille moyenne.</p>
       </div>
     </div>
-  </div>
+  </section>
+</div>
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:4rem;">
-    <div class="component-card">
-      <div class="component-label">B2C Particuliers</div>
-      <p style="color:var(--gris-clair);font-size:0.95rem;">Complice, chaleureux, saisonnier. Newsletters mensuelles, posts réseaux, boutique.</p>
-    </div>
-    <div class="component-card">
-      <div class="component-label">B2B Pros (CHR, cavistes)</div>
-      <p style="color:var(--gris-clair);font-size:0.95rem;">Structuré, utile, factuel. Newsletters bimensuelles, dispo fûts, animations.</p>
-    </div>
-    <div class="component-card">
-      <div class="component-label">Prospection</div>
-      <p style="color:var(--gris-clair);font-size:0.95rem;">Accrocheur, valorise le local et la qualité. Cavistes indépendants, CHR taille moyenne.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 07 DO/DON'T ============ -->
+<!-- ============ 07 DO/DON'T ============ (sur fond jaune) -->
 <section id="regles">
   <div class="section-header">
     <div class="section-number">07</div>
@@ -1506,21 +1775,22 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 08 CSS ============ -->
-<section id="code">
-  <div class="section-header">
-    <div class="section-number">08</div>
-    <h2 class="section-title">Variables<br>CSS</h2>
-  </div>
-
-  <p style="color:var(--gris-clair);max-width:700px;margin-bottom:2rem;">Bloc prêt à coller dans le projet web. Inclut couleurs primaires, étiquettes, saisons, typographies.</p>
-
-  <div class="code-block">
-    <div class="code-header">
-      <span>:root — Brasserie du Vénasque</span>
-      <button class="code-copy-btn" onclick="copyCSS()">Copier le code</button>
+<!-- ============ 08 CSS ============ (sur fond clair) -->
+<div class="section-soft">
+  <section id="code">
+    <div class="section-header">
+      <div class="section-number">08</div>
+      <h2 class="section-title">Variables<br>CSS</h2>
     </div>
-    <pre id="css-code"><span class="token-comment">/* Couleurs principales */</span>
+
+    <p style="color:var(--text-secondary);max-width:700px;margin-bottom:2rem;">Bloc prêt à coller dans le projet web. Inclut couleurs primaires, étiquettes, saisons, typographies.</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span>:root — Brasserie du Vénasque</span>
+        <button class="code-copy-btn" onclick="copyCSS()">Copier le code</button>
+      </div>
+      <pre id="css-code"><span class="token-comment">/* Couleurs principales */</span>
 <span class="token-var">--noir</span>: <span class="token-value">#0A0A0A</span>;
 <span class="token-var">--or</span>: <span class="token-value">#F0B414</span>;
 <span class="token-var">--or-profond</span>: <span class="token-value">#DCA014</span>;
@@ -1553,20 +1823,65 @@ footer p + p {
 <span class="token-var">--font-display</span>: <span class="token-value">'Anton', 'Oswald', sans-serif</span>;
 <span class="token-var">--font-heading</span>: <span class="token-value">'Montserrat', sans-serif</span>;
 <span class="token-var">--font-body</span>: <span class="token-value">'Inter', sans-serif</span>;</pre>
-  </div>
-</section>
+    </div>
+  </section>
+</div>
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  <img class="footer-logo" src="logos/logo-blason-blanc-transparent.png" alt="Brasserie du Vénasque">
+  <img class="footer-logo" id="footer-logo" src="logos/logo-blason-noir-transparent.png" alt="Brasserie du Vénasque">
   <p>Brasserie du Vénasque</p>
   <p>3 rue Sous Baylo · 31110 Montauban-de-Luchon</p>
-  <p>Design System v1.2 · Mai 2026</p>
+  <p>Design System v1.3 · Mai 2026</p>
 </footer>
 
 <div class="toast" id="toast">Code couleur copié !</div>
 
 <script>
+// ============ THEME MANAGEMENT ============
+const STORAGE_KEY = 'bdv-theme';
+const root = document.documentElement;
+const footerLogo = document.getElementById('footer-logo');
+
+// Récupère le thème sauvegardé ou utilise 'light' par défaut
+function getStoredTheme() {
+  try {
+    return localStorage.getItem(STORAGE_KEY) || 'light';
+  } catch (e) {
+    return 'light';
+  }
+}
+
+function setTheme(theme) {
+  root.setAttribute('data-theme', theme);
+  try {
+    localStorage.setItem(STORAGE_KEY, theme);
+  } catch (e) {}
+  
+  // Swap du logo dans le footer (noir si fond jaune, blanc si fond noir)
+  if (footerLogo) {
+    footerLogo.src = theme === 'light' 
+      ? 'logos/logo-blason-noir-transparent.png' 
+      : 'logos/logo-blason-blanc-transparent.png';
+  }
+}
+
+function toggleTheme() {
+  const current = root.getAttribute('data-theme') || 'light';
+  setTheme(current === 'light' ? 'dark' : 'light');
+}
+
+// Application du thème dès le chargement
+setTheme(getStoredTheme());
+
+// Activer les transitions après le 1er rendu (évite les flashs)
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.body.classList.remove('no-transitions');
+  }, 100);
+});
+
+// ============ COPY HEX ON CLICK ============
 document.querySelectorAll('.color-card, .beer-card').forEach(card => {
   card.addEventListener('click', () => {
     const hex = card.getAttribute('data-hex');
@@ -1580,6 +1895,7 @@ document.querySelectorAll('.color-card, .beer-card').forEach(card => {
   });
 });
 
+// ============ COPY CSS BLOCK ============
 function copyCSS() {
   const code = document.getElementById('css-code').innerText;
   const wrapped = ':root {\n' + code.split('\n').map(l => '  ' + l).join('\n') + '\n}';
@@ -1594,6 +1910,7 @@ function copyCSS() {
   });
 }
 
+// ============ TOAST ============
 function showToast(message) {
   const toast = document.getElementById('toast');
   toast.textContent = message;
