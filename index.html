@@ -6,14 +6,12 @@
 <title>Design System — Brasserie du Vénasque</title>
 <meta name="description" content="Design System officiel de la Brasserie du Vénasque — Brasserie artisanale au cœur des Pyrénées, Pays de Luchon.">
 
-<!-- Google Fonts : Anton (display), Montserrat (heading), Inter (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  /* Couleurs principales */
   --noir: #0A0A0A;
   --noir-doux: #1A1A1A;
   --or: #F0B414;
@@ -24,7 +22,6 @@
   --gris-clair: #B8B5AC;
   --bordure: #2A2A2A;
 
-  /* Couleurs étiquettes */
   --brams: #E8A82C;
   --bourek: #9DBE5A;
   --mouflon: #A0552B;
@@ -39,27 +36,18 @@
   --opa-blonde: #E8C896;
   --opa-ambree: #E89478;
 
-  /* Couleurs saisonnières */
   --printemps: #9CC95C;
   --ete: #E8748C;
   --automne: #D89020;
   --hiver: #A83828;
 
-  /* Typographies */
   --font-display: 'Anton', sans-serif;
   --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Inter', sans-serif;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
@@ -69,7 +57,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ============ HEADER / HERO ============ */
+/* ============ HERO ============ */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -104,20 +92,22 @@ body {
 
 .hero h1 {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 14vw, 12rem);
-  line-height: 0.85;
-  letter-spacing: -0.02em;
+  font-size: clamp(3.5rem, 13vw, 11rem);
+  line-height: 1.0;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: var(--blanc);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   position: relative;
   z-index: 2;
 }
 
-.hero h1 .accent {
-  color: var(--or);
+.hero h1 span {
   display: block;
+  margin-top: 0.15em;
 }
+
+.hero h1 .accent { color: var(--or); }
 
 .hero-tagline {
   font-family: var(--font-heading);
@@ -149,17 +139,6 @@ body {
   font-size: 0.85rem;
   margin-top: 0.5rem;
   font-weight: 700;
-}
-
-/* Mountain decoration */
-.hero-mountains {
-  position: absolute;
-  bottom: 0;
-  right: -5%;
-  width: 600px;
-  max-width: 60%;
-  opacity: 0.06;
-  pointer-events: none;
 }
 
 /* ============ NAVIGATION ============ */
@@ -227,9 +206,9 @@ section {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 0.9;
+  line-height: 0.95;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.005em;
 }
 
 .section-subtitle {
@@ -267,7 +246,200 @@ section {
   font-size: 0.95rem;
 }
 
-/* ============ PALETTE COULEURS ============ */
+/* ============ LOGOS ============ */
+.logo-intro {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .logo-intro { grid-template-columns: 1fr; }
+}
+
+.logo-intro p {
+  color: var(--gris-clair);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.logo-intro p strong { color: var(--blanc); }
+
+/* Banner Gotham */
+.gotham-banner {
+  background: linear-gradient(135deg, var(--noir-doux) 0%, var(--noir) 100%);
+  border: 1px solid var(--or);
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 4px;
+}
+
+.gotham-banner-icon {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--or);
+  line-height: 1;
+}
+
+.gotham-banner-text {
+  flex: 1;
+  min-width: 220px;
+}
+
+.gotham-banner-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--or);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.gotham-banner-content {
+  font-size: 0.95rem;
+  color: var(--gris-clair);
+  line-height: 1.5;
+}
+
+.gotham-banner-content strong {
+  color: var(--blanc);
+  font-weight: 700;
+}
+
+/* Grille des logos */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.logo-card {
+  background: var(--noir-doux);
+  border: 1px solid var(--bordure);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.logo-card:hover { border-color: var(--or); }
+
+.logo-display {
+  padding: 4rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  position: relative;
+}
+
+.logo-display.dark { background: var(--noir); }
+.logo-display.light { background: var(--blanc-casse); }
+
+.logo-display img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.logo-display.blason img {
+  max-height: 220px;
+}
+
+.logo-display.classique img {
+  max-height: 130px;
+}
+
+.logo-info {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--bordure);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo-info-text { flex: 1; min-width: 180px; }
+
+.logo-info-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.logo-info-meta {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gris-clair);
+  font-weight: 500;
+}
+
+.logo-download {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--blanc);
+  border: 1px solid var(--bordure);
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: 700;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.logo-download:hover {
+  background: var(--or);
+  color: var(--noir);
+  border-color: var(--or);
+}
+
+.logo-rules {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.logo-rule {
+  background: var(--noir-doux);
+  border: 1px solid var(--bordure);
+  padding: 2rem;
+  border-radius: 4px;
+}
+
+.logo-rule h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.logo-rule p {
+  color: var(--gris-clair);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.logo-rule strong { color: var(--blanc); }
+
+/* ============ PALETTE ============ */
 .palette-primary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -285,9 +457,7 @@ section {
   border: 1px solid var(--bordure);
 }
 
-.color-card:hover {
-  transform: translateY(-4px);
-}
+.color-card:hover { transform: translateY(-4px); }
 
 .color-card-info {
   position: absolute;
@@ -311,9 +481,7 @@ section {
   color: var(--blanc);
 }
 
-.color-card.light .color-card-name {
-  color: var(--noir);
-}
+.color-card.light .color-card-name { color: var(--noir); }
 
 .color-card-hex {
   font-family: 'Courier New', monospace;
@@ -322,9 +490,7 @@ section {
   letter-spacing: 0.05em;
 }
 
-.color-card.light .color-card-hex {
-  color: var(--gris);
-}
+.color-card.light .color-card-hex { color: var(--gris); }
 
 .color-card-copy {
   position: absolute;
@@ -350,9 +516,7 @@ section {
   color: var(--noir);
 }
 
-.color-card:hover .color-card-copy {
-  opacity: 1;
-}
+.color-card:hover .color-card-copy { opacity: 1; }
 
 .color-card.copied .color-card-copy {
   opacity: 1;
@@ -361,7 +525,6 @@ section {
   border-color: var(--or);
 }
 
-/* Bières & saisons */
 .beer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -380,13 +543,9 @@ section {
   padding: 1rem;
 }
 
-.beer-card:hover {
-  transform: scale(1.04);
-}
+.beer-card:hover { transform: scale(1.04); }
 
-.beer-card-content {
-  width: 100%;
-}
+.beer-card-content { width: 100%; }
 
 .beer-name {
   font-family: var(--font-display);
@@ -428,7 +587,6 @@ section {
   padding: 3rem 2.5rem;
   margin-bottom: 2rem;
   border-radius: 4px;
-  position: relative;
 }
 
 .typo-label {
@@ -458,8 +616,8 @@ section {
 .typo-display {
   font-family: var(--font-display);
   font-size: clamp(3rem, 9vw, 7rem);
-  line-height: 0.9;
-  letter-spacing: -0.01em;
+  line-height: 1.0;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: var(--blanc);
   margin-bottom: 0.5rem;
@@ -513,6 +671,42 @@ section {
   font-weight: 500;
 }
 
+/* Note Gotham dans la section typo */
+.typo-note-gotham {
+  background: rgba(240, 180, 20, 0.08);
+  border-left: 3px solid var(--or);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.typo-note-gotham strong {
+  color: var(--or);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.typo-note-gotham p {
+  color: var(--gris-clair);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.typo-note-gotham p strong {
+  display: inline;
+  color: var(--blanc);
+  font-family: inherit;
+  font-size: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-bottom: 0;
+}
+
 /* ============ COMPOSANTS ============ */
 .component-grid {
   display: grid;
@@ -550,7 +744,6 @@ section {
   min-height: 180px;
 }
 
-/* Bandeau étiquette signature */
 .label-banner {
   background: var(--noir);
   padding: 1.25rem 2rem;
@@ -578,7 +771,6 @@ section {
   margin-top: 0.4rem;
 }
 
-/* Boutons */
 .btn {
   font-family: var(--font-heading);
   font-size: 0.85rem;
@@ -594,35 +786,12 @@ section {
   border-radius: 2px;
 }
 
-.btn-primary {
-  background: var(--or);
-  color: var(--noir);
-}
+.btn-primary { background: var(--or); color: var(--noir); }
+.btn-primary:hover { background: var(--or-profond); transform: translateY(-2px); }
+.btn-secondary { background: transparent; color: var(--noir); border: 2px solid var(--noir); }
+.btn-secondary:hover { background: var(--noir); color: var(--blanc); }
+.btn-ghost { background: transparent; color: var(--noir); text-decoration: underline; text-underline-offset: 4px; }
 
-.btn-primary:hover {
-  background: var(--or-profond);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--noir);
-  border: 2px solid var(--noir);
-}
-
-.btn-secondary:hover {
-  background: var(--noir);
-  color: var(--blanc);
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--noir);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-/* Pavé Pays de Luchon */
 .luchon-tag {
   font-family: var(--font-heading);
   font-size: 0.75rem;
@@ -635,7 +804,6 @@ section {
   display: inline-block;
 }
 
-/* Carte produit mini */
 .product-card {
   background: var(--noir);
   padding: 1.5rem;
@@ -753,15 +921,8 @@ section {
   border: 1px solid var(--bordure);
 }
 
-.dodont-card.do {
-  background: rgba(30, 145, 112, 0.08);
-  border-color: rgba(30, 145, 112, 0.3);
-}
-
-.dodont-card.dont {
-  background: rgba(232, 78, 27, 0.08);
-  border-color: rgba(232, 78, 27, 0.3);
-}
+.dodont-card.do { background: rgba(30, 145, 112, 0.08); border-color: rgba(30, 145, 112, 0.3); }
+.dodont-card.dont { background: rgba(232, 78, 27, 0.08); border-color: rgba(232, 78, 27, 0.3); }
 
 .dodont-title {
   font-family: var(--font-display);
@@ -776,9 +937,7 @@ section {
 .dodont-title.do { color: #4FBE8E; }
 .dodont-title.dont { color: var(--aigle); }
 
-.dodont-list {
-  list-style: none;
-}
+.dodont-list { list-style: none; }
 
 .dodont-list li {
   padding: 0.6rem 0;
@@ -831,17 +990,8 @@ section {
   transition: all 0.2s;
 }
 
-.code-copy-btn:hover {
-  background: var(--or);
-  color: var(--noir);
-  border-color: var(--or);
-}
-
-.code-copy-btn.copied {
-  background: #1E9170;
-  color: var(--blanc);
-  border-color: #1E9170;
-}
+.code-copy-btn:hover { background: var(--or); color: var(--noir); border-color: var(--or); }
+.code-copy-btn.copied { background: #1E9170; color: var(--blanc); border-color: #1E9170; }
 
 .code-block pre {
   padding: 1.5rem;
@@ -864,12 +1014,10 @@ footer {
   color: var(--gris-clair);
 }
 
-footer .logo-mountains {
-  font-size: 2.5rem;
-  color: var(--or);
-  letter-spacing: -0.1em;
-  margin-bottom: 1rem;
-  font-family: var(--font-display);
+footer .footer-logo {
+  max-height: 60px;
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
 }
 
 footer p {
@@ -905,11 +1053,8 @@ footer p + p {
   box-shadow: 0 8px 30px rgba(0,0,0,0.5);
 }
 
-.toast.visible {
-  transform: translateX(-50%) translateY(0);
-}
+.toast.visible { transform: translateX(-50%) translateY(0); }
 
-/* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
   section { padding: 4rem 5vw; }
   .hero { padding: 3rem 5vw; }
@@ -922,10 +1067,10 @@ footer p + p {
 
 <!-- ============ HERO ============ -->
 <header class="hero">
-  <div class="hero-mark">⛰ Design System v1.0 — Mai 2026</div>
+  <div class="hero-mark">⛰ Design System v1.2 — Mai 2026</div>
   <h1>
-    Brasserie<br>
-    du<br>
+    <span>Brasserie</span>
+    <span>du</span>
     <span class="accent">Vénasque</span>
   </h1>
   <p class="hero-tagline">Bières & Limonades Artisanales — Pays de Luchon — Au cœur des Pyrénées</p>
@@ -941,12 +1086,13 @@ footer p + p {
 <nav class="nav">
   <div class="nav-inner">
     <a href="#identite">01 — Identité</a>
-    <a href="#palette">02 — Palette</a>
-    <a href="#typo">03 — Typographies</a>
-    <a href="#composants">04 — Composants</a>
-    <a href="#voix">05 — Ton de voix</a>
-    <a href="#regles">06 — Do / Don't</a>
-    <a href="#code">07 — CSS Variables</a>
+    <a href="#logos">02 — Logos</a>
+    <a href="#palette">03 — Palette</a>
+    <a href="#typo">04 — Typographies</a>
+    <a href="#composants">05 — Composants</a>
+    <a href="#voix">06 — Ton de voix</a>
+    <a href="#regles">07 — Do / Don't</a>
+    <a href="#code">08 — CSS Variables</a>
   </div>
 </nav>
 
@@ -977,10 +1123,119 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 02 PALETTE ============ -->
-<section id="palette">
+<!-- ============ 02 LOGOS ============ -->
+<section id="logos">
   <div class="section-header">
     <div class="section-number">02</div>
+    <h2 class="section-title">Logos &<br>marques</h2>
+  </div>
+
+  <div class="logo-intro">
+    <div class="section-subtitle">L'identité visuelle</div>
+    <p>Le logo de la Brasserie du Vénasque combine trois éléments signature : <strong>les trois sommets pyrénéens stylisés</strong> (le Vénasque et les sommets qui dominent la brasserie), <strong>le nom de la marque</strong> en typographie Gotham Bold, et <strong>la goutte d'eau</strong> sur le blason (rappel de l'eau de source de Montauban-de-Luchon, matière première signature). Deux versions sont disponibles : le blason (forme d'écu, version compacte signature) et le logo classique (version verticale, plus lisible en grand format).</p>
+  </div>
+
+  <div class="gotham-banner">
+    <div class="gotham-banner-icon">Aa</div>
+    <div class="gotham-banner-text">
+      <div class="gotham-banner-label">Typographie officielle du logo</div>
+      <div class="gotham-banner-content">La typographie utilisée pour <strong>BRASSERIE DU VÉNASQUE</strong> est <strong>Gotham Bold</strong> (Hoefler & Co.). Police propriétaire payante, à utiliser uniquement sur les fichiers source du logo. Pour les supports web et internes, utiliser <strong>Montserrat</strong> ou <strong>Poppins</strong> en alternative gratuite (proches visuellement).</div>
+    </div>
+  </div>
+
+  <!-- Les 4 versions de logo -->
+  <div class="logo-grid">
+
+    <!-- Blason fond noir -->
+    <div class="logo-card">
+      <div class="logo-display dark blason">
+        <img src="logos/logo-blason-blanc-transparent.png" alt="Logo blason Brasserie du Vénasque - version blanche">
+      </div>
+      <div class="logo-info">
+        <div class="logo-info-text">
+          <div class="logo-info-name">Blason — Version blanche</div>
+          <div class="logo-info-meta">Sur fond noir / sombre · usage principal PLV</div>
+        </div>
+        <a href="logos/logo-blason-blanc-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
+      </div>
+    </div>
+
+    <!-- Blason fond clair -->
+    <div class="logo-card">
+      <div class="logo-display light blason">
+        <img src="logos/logo-blason-noir-transparent.png" alt="Logo blason Brasserie du Vénasque - version noire">
+      </div>
+      <div class="logo-info">
+        <div class="logo-info-text">
+          <div class="logo-info-name">Blason — Version noire</div>
+          <div class="logo-info-meta">Sur fond clair · papier, factures, documents</div>
+        </div>
+        <a href="logos/logo-blason-noir-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
+      </div>
+    </div>
+
+    <!-- Classique fond noir -->
+    <div class="logo-card">
+      <div class="logo-display dark classique">
+        <img src="logos/logo-classique-blanc-transparent.png" alt="Logo classique Brasserie du Vénasque - version blanche">
+      </div>
+      <div class="logo-info">
+        <div class="logo-info-text">
+          <div class="logo-info-name">Classique — Version blanche</div>
+          <div class="logo-info-meta">Sur fond noir · header site web, packaging</div>
+        </div>
+        <a href="logos/logo-classique-blanc-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
+      </div>
+    </div>
+
+    <!-- Classique fond clair -->
+    <div class="logo-card">
+      <div class="logo-display light classique">
+        <img src="logos/logo-classique-noir-transparent.png" alt="Logo classique Brasserie du Vénasque - version noire">
+      </div>
+      <div class="logo-info">
+        <div class="logo-info-text">
+          <div class="logo-info-name">Classique — Version noire</div>
+          <div class="logo-info-meta">Sur fond clair · papier en-tête, supports print</div>
+        </div>
+        <a href="logos/logo-classique-noir-transparent.png" download class="logo-download">↓ Télécharger PNG</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Règles d'usage -->
+  <div class="section-subtitle" style="margin-top: 4rem;">Règles d'usage</div>
+  <div class="logo-rules">
+    <div class="logo-rule">
+      <h4>Zone de protection</h4>
+      <p>Conserver autour du logo une zone vide équivalente à <strong>la hauteur des montagnes</strong>. Aucun élément graphique ou texte ne doit empiéter sur cette zone.</p>
+    </div>
+    <div class="logo-rule">
+      <h4>Tailles minimales</h4>
+      <p><strong>Web :</strong> 80 px de large minimum pour le blason, 200 px pour le classique.<br><strong>Print :</strong> 25 mm de large minimum pour le blason, 60 mm pour le classique.</p>
+    </div>
+    <div class="logo-rule">
+      <h4>Format préféré</h4>
+      <p><strong>Blason</strong> : usage signature, étiquettes, packaging compact, favicons, réseaux sociaux. <br><strong>Classique</strong> : header site, papier en-tête, signatures email, supports verticaux.</p>
+    </div>
+    <div class="logo-rule">
+      <h4>Ce qu'il ne faut pas faire</h4>
+      <p>Ne pas <strong>déformer</strong>, <strong>recolorer</strong> avec d'autres couleurs que blanc/noir, <strong>ajouter d'effets</strong> (ombre, biseau, dégradé), ni <strong>incliner</strong> le logo. Toujours utiliser les fichiers officiels.</p>
+    </div>
+  </div>
+
+  <!-- Note source -->
+  <div style="margin-top: 3rem; padding: 1.5rem 2rem; background: rgba(255,255,255,0.03); border-radius: 4px; border: 1px dashed var(--bordure);">
+    <p style="font-family: var(--font-heading); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--or); font-weight: 700; margin-bottom: 0.5rem;">Fichiers source</p>
+    <p style="color: var(--gris-clair); font-size: 0.9rem; line-height: 1.6;">Les fichiers <strong style="color:var(--blanc)">.eps</strong> et <strong style="color:var(--blanc)">.ai</strong> en CMJN haute définition sont conservés en interne pour les besoins d'impression professionnelle. Les versions PNG ci-dessus (à fond transparent) sont destinées aux usages web et bureautique. Pour toute reprise sur supports print, utiliser les fichiers source vectoriels via le studio graphique partenaire.</p>
+  </div>
+</section>
+
+<!-- ============ 03 PALETTE ============ -->
+<section id="palette">
+  <div class="section-header">
+    <div class="section-number">03</div>
     <h2 class="section-title">Palette<br>de couleurs</h2>
   </div>
 
@@ -1025,137 +1280,40 @@ footer p + p {
 
   <div class="section-subtitle" style="margin-top: 4rem;">Couleurs étiquettes — Une couleur signature par bière</div>
   <div class="beer-grid">
-    <div class="beer-card" style="background:#E8A82C;" data-hex="#E8A82C">
-      <div class="beer-card-content">
-        <div class="beer-name">Bram's</div>
-        <div class="beer-style">Blonde 5%</div>
-        <div class="beer-hex">#E8A82C</div>
-      </div>
-    </div>
-    <div class="beer-card" style="background:#9DBE5A;" data-hex="#9DBE5A">
-      <div class="beer-card-content">
-        <div class="beer-name">Bourek</div>
-        <div class="beer-style">Ambrée 5%</div>
-        <div class="beer-hex">#9DBE5A</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#A0552B;" data-hex="#A0552B">
-      <div class="beer-card-content">
-        <div class="beer-name">Mouflon</div>
-        <div class="beer-style">Brune 4%</div>
-        <div class="beer-hex">#A0552B</div>
-      </div>
-    </div>
-    <div class="beer-card" style="background:#C0C0C0;" data-hex="#C0C0C0">
-      <div class="beer-card-content">
-        <div class="beer-name">Louva</div>
-        <div class="beer-style">Blanche 4.5%</div>
-        <div class="beer-hex">#C0C0C0</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#3A9BCB;" data-hex="#3A9BCB">
-      <div class="beer-card-content">
-        <div class="beer-name">Lynx</div>
-        <div class="beer-style">Ambrée 5%</div>
-        <div class="beer-hex">#3A9BCB</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#E84E1B;" data-hex="#E84E1B">
-      <div class="beer-card-content">
-        <div class="beer-name">Aigle Royal</div>
-        <div class="beer-style">Ambrée 7%</div>
-        <div class="beer-hex">#E84E1B</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#1E9170;" data-hex="#1E9170">
-      <div class="beer-card-content">
-        <div class="beer-name">Izard</div>
-        <div class="beer-style">Blonde Bio 5%</div>
-        <div class="beer-hex">#1E9170</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#9E2A2B;" data-hex="#9E2A2B">
-      <div class="beer-card-content">
-        <div class="beer-name">Arrian</div>
-        <div class="beer-style">Triple 8.5%</div>
-        <div class="beer-hex">#9E2A2B</div>
-      </div>
-    </div>
-    <div class="beer-card" style="background:#E8B0BC;" data-hex="#E8B0BC">
-      <div class="beer-card-content">
-        <div class="beer-name">Marmotte</div>
-        <div class="beer-style">Milkshake IPA 4.5%</div>
-        <div class="beer-hex">#E8B0BC</div>
-      </div>
-    </div>
-    <div class="beer-card" style="background:#7AC4C8;" data-hex="#7AC4C8">
-      <div class="beer-card-content">
-        <div class="beer-name">Trueita</div>
-        <div class="beer-style">Lager 5%</div>
-        <div class="beer-hex">#7AC4C8</div>
-      </div>
-    </div>
-    <div class="beer-card" style="background:#F0E8B0;" data-hex="#F0E8B0">
-      <div class="beer-card-content">
-        <div class="beer-name">Mésange</div>
-        <div class="beer-style">Sans Alcool 0.5%</div>
-        <div class="beer-hex">#F0E8B0</div>
-      </div>
-    </div>
-    <div class="beer-card" style="background:#E8C896;" data-hex="#E8C896">
-      <div class="beer-card-content">
-        <div class="beer-name">OPA Blonde</div>
-        <div class="beer-style">Blonde IPA 5%</div>
-        <div class="beer-hex">#E8C896</div>
-      </div>
-    </div>
-    <div class="beer-card" style="background:#E89478;" data-hex="#E89478">
-      <div class="beer-card-content">
-        <div class="beer-name">OPA Ambrée</div>
-        <div class="beer-style">Pale Ale 6%</div>
-        <div class="beer-hex">#E89478</div>
-      </div>
-    </div>
+    <div class="beer-card" style="background:#E8A82C;" data-hex="#E8A82C"><div class="beer-card-content"><div class="beer-name">Bram's</div><div class="beer-style">Blonde 5%</div><div class="beer-hex">#E8A82C</div></div></div>
+    <div class="beer-card" style="background:#9DBE5A;" data-hex="#9DBE5A"><div class="beer-card-content"><div class="beer-name">Bourek</div><div class="beer-style">Ambrée 5%</div><div class="beer-hex">#9DBE5A</div></div></div>
+    <div class="beer-card dark" style="background:#A0552B;" data-hex="#A0552B"><div class="beer-card-content"><div class="beer-name">Mouflon</div><div class="beer-style">Brune 4%</div><div class="beer-hex">#A0552B</div></div></div>
+    <div class="beer-card" style="background:#C0C0C0;" data-hex="#C0C0C0"><div class="beer-card-content"><div class="beer-name">Louva</div><div class="beer-style">Blanche 4.5%</div><div class="beer-hex">#C0C0C0</div></div></div>
+    <div class="beer-card dark" style="background:#3A9BCB;" data-hex="#3A9BCB"><div class="beer-card-content"><div class="beer-name">Lynx</div><div class="beer-style">Ambrée 5%</div><div class="beer-hex">#3A9BCB</div></div></div>
+    <div class="beer-card dark" style="background:#E84E1B;" data-hex="#E84E1B"><div class="beer-card-content"><div class="beer-name">Aigle Royal</div><div class="beer-style">Ambrée 7%</div><div class="beer-hex">#E84E1B</div></div></div>
+    <div class="beer-card dark" style="background:#1E9170;" data-hex="#1E9170"><div class="beer-card-content"><div class="beer-name">Izard</div><div class="beer-style">Blonde Bio 5%</div><div class="beer-hex">#1E9170</div></div></div>
+    <div class="beer-card dark" style="background:#9E2A2B;" data-hex="#9E2A2B"><div class="beer-card-content"><div class="beer-name">Arrian</div><div class="beer-style">Triple 8.5%</div><div class="beer-hex">#9E2A2B</div></div></div>
+    <div class="beer-card" style="background:#E8B0BC;" data-hex="#E8B0BC"><div class="beer-card-content"><div class="beer-name">Marmotte</div><div class="beer-style">Milkshake IPA 4.5%</div><div class="beer-hex">#E8B0BC</div></div></div>
+    <div class="beer-card" style="background:#7AC4C8;" data-hex="#7AC4C8"><div class="beer-card-content"><div class="beer-name">Trueita</div><div class="beer-style">Lager 5%</div><div class="beer-hex">#7AC4C8</div></div></div>
+    <div class="beer-card" style="background:#F0E8B0;" data-hex="#F0E8B0"><div class="beer-card-content"><div class="beer-name">Mésange</div><div class="beer-style">Sans Alcool 0.5%</div><div class="beer-hex">#F0E8B0</div></div></div>
+    <div class="beer-card" style="background:#E8C896;" data-hex="#E8C896"><div class="beer-card-content"><div class="beer-name">OPA Blonde</div><div class="beer-style">Blonde IPA 5%</div><div class="beer-hex">#E8C896</div></div></div>
+    <div class="beer-card" style="background:#E89478;" data-hex="#E89478"><div class="beer-card-content"><div class="beer-name">OPA Ambrée</div><div class="beer-style">Pale Ale 6%</div><div class="beer-hex">#E89478</div></div></div>
   </div>
 
   <div class="section-subtitle" style="margin-top: 4rem;">Couleurs saisonnières</div>
   <div class="beer-grid">
-    <div class="beer-card" style="background:#9CC95C;" data-hex="#9CC95C">
-      <div class="beer-card-content">
-        <div class="beer-name">Printemps</div>
-        <div class="beer-style">Session IPA 4.2%</div>
-        <div class="beer-hex">#9CC95C</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#E8748C;" data-hex="#E8748C">
-      <div class="beer-card-content">
-        <div class="beer-name">Été</div>
-        <div class="beer-style">Blanche fruitée 4%</div>
-        <div class="beer-hex">#E8748C</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#D89020;" data-hex="#D89020">
-      <div class="beer-card-content">
-        <div class="beer-name">Automne</div>
-        <div class="beer-style">Blonde Miel 7%</div>
-        <div class="beer-hex">#D89020</div>
-      </div>
-    </div>
-    <div class="beer-card dark" style="background:#A83828;" data-hex="#A83828">
-      <div class="beer-card-content">
-        <div class="beer-name">Hiver</div>
-        <div class="beer-style">Ambrée épicée 5%</div>
-        <div class="beer-hex">#A83828</div>
-      </div>
-    </div>
+    <div class="beer-card" style="background:#9CC95C;" data-hex="#9CC95C"><div class="beer-card-content"><div class="beer-name">Printemps</div><div class="beer-style">Session IPA 4.2%</div><div class="beer-hex">#9CC95C</div></div></div>
+    <div class="beer-card dark" style="background:#E8748C;" data-hex="#E8748C"><div class="beer-card-content"><div class="beer-name">Été</div><div class="beer-style">Blanche fruitée 4%</div><div class="beer-hex">#E8748C</div></div></div>
+    <div class="beer-card dark" style="background:#D89020;" data-hex="#D89020"><div class="beer-card-content"><div class="beer-name">Automne</div><div class="beer-style">Blonde Miel 7%</div><div class="beer-hex">#D89020</div></div></div>
+    <div class="beer-card dark" style="background:#A83828;" data-hex="#A83828"><div class="beer-card-content"><div class="beer-name">Hiver</div><div class="beer-style">Ambrée épicée 5%</div><div class="beer-hex">#A83828</div></div></div>
   </div>
 </section>
 
-<!-- ============ 03 TYPOGRAPHIES ============ -->
+<!-- ============ 04 TYPOGRAPHIES ============ -->
 <section id="typo">
   <div class="section-header">
-    <div class="section-number">03</div>
+    <div class="section-number">04</div>
     <h2 class="section-title">Typo-<br>graphies</h2>
+  </div>
+
+  <div class="typo-note-gotham">
+    <strong>⚠ Note importante</strong>
+    <p>La typographie officielle utilisée sur le logo et les étiquettes de la Brasserie du Vénasque est <strong>Gotham Bold</strong> (Hoefler & Co., police propriétaire). Pour les supports web et internes, on utilise les alternatives gratuites <strong>Anton</strong>, <strong>Montserrat</strong> et <strong>Inter</strong>. Pour les supports print officiels, contacter le studio graphique partenaire qui dispose de la licence Gotham.</p>
   </div>
 
   <div class="typo-block">
@@ -1164,7 +1322,7 @@ footer p + p {
       <span class="typo-label-meta">ANTON / 700 / UPPERCASE</span>
     </div>
     <div class="typo-display">Bières<br>Pyrénéennes</div>
-    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Sans-serif condensée, géométrique, capitales. Référence directe au mot-clé "VÉNASQUE" du logo. Réservée aux titres impactants : H1, H2, accroches PLV, noms de bières.</p>
+    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Sans-serif condensée géométrique. Utilisée pour les titres impactants : H1, H2, accroches, noms de bières.</p>
   </div>
 
   <div class="typo-block">
@@ -1173,7 +1331,7 @@ footer p + p {
       <span class="typo-label-meta">MONTSERRAT / 600 / UPPERCASE</span>
     </div>
     <div class="typo-heading">Bière Ambrée Houblonnée — Pays de Luchon</div>
-    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Sans-serif géométrique, lisible. Pour les sous-titres d'étiquettes, mentions légales, labels de boutons, navigation.</p>
+    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Alternative web la plus proche de Gotham Bold. Pour les sous-titres, mentions, labels de boutons, navigation.</p>
   </div>
 
   <div class="typo-block">
@@ -1186,30 +1344,25 @@ footer p + p {
 
   <table class="typo-scale-table">
     <thead>
-      <tr>
-        <th>Élément</th>
-        <th>Police</th>
-        <th>Poids</th>
-        <th>Desktop</th>
-        <th>Mobile</th>
-      </tr>
+      <tr><th>Élément</th><th>Police web</th><th>Police print officielle</th><th>Poids</th><th>Desktop</th></tr>
     </thead>
     <tbody>
-      <tr><td>H1</td><td>Anton</td><td>700</td><td>64px</td><td>40px</td></tr>
-      <tr><td>H2</td><td>Anton</td><td>700</td><td>48px</td><td>32px</td></tr>
-      <tr><td>H3</td><td>Anton</td><td>700</td><td>32px</td><td>24px</td></tr>
-      <tr><td>Sous-titre / H4</td><td>Montserrat</td><td>600</td><td>20px</td><td>18px</td></tr>
-      <tr><td>Corps</td><td>Inter</td><td>400</td><td>16px</td><td>16px</td></tr>
-      <tr><td>Légende</td><td>Inter</td><td>400</td><td>14px</td><td>14px</td></tr>
-      <tr><td>Bouton CTA</td><td>Montserrat</td><td>700</td><td>16px</td><td>16px</td></tr>
+      <tr><td>Logo / branding</td><td>Montserrat 800</td><td>Gotham Bold</td><td>700-800</td><td>—</td></tr>
+      <tr><td>H1</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>64px</td></tr>
+      <tr><td>H2</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>48px</td></tr>
+      <tr><td>H3</td><td>Anton</td><td>Gotham Bold</td><td>700</td><td>32px</td></tr>
+      <tr><td>Sous-titre / H4</td><td>Montserrat</td><td>Gotham Book</td><td>600</td><td>20px</td></tr>
+      <tr><td>Corps</td><td>Inter</td><td>Gotham Book</td><td>400</td><td>16px</td></tr>
+      <tr><td>Légende</td><td>Inter</td><td>Gotham Book</td><td>400</td><td>14px</td></tr>
+      <tr><td>Bouton CTA</td><td>Montserrat</td><td>Gotham Bold</td><td>700</td><td>16px</td></tr>
     </tbody>
   </table>
 </section>
 
-<!-- ============ 04 COMPOSANTS ============ -->
+<!-- ============ 05 COMPOSANTS ============ -->
 <section id="composants">
   <div class="section-header">
-    <div class="section-number">04</div>
+    <div class="section-number">05</div>
     <h2 class="section-title">Composants<br>signature</h2>
   </div>
 
@@ -1222,7 +1375,7 @@ footer p + p {
           <div class="label-banner-style">Bière Ambrée Houblonnée</div>
         </div>
       </div>
-      <p class="component-desc">Élément récurrent : bandeau noir profond, nom de bière en Anton blanc, sous-titre en Montserrat clair. Signature visuelle des étiquettes.</p>
+      <p class="component-desc">Élément récurrent : bandeau noir profond, nom de bière en grosse typo blanche, sous-titre en typo lecture clair. Signature visuelle des étiquettes.</p>
     </div>
 
     <div class="component-card">
@@ -1232,7 +1385,7 @@ footer p + p {
         <a href="#" class="btn btn-secondary">En savoir plus</a>
         <a href="#" class="btn btn-ghost">Contactez-nous →</a>
       </div>
-      <p class="component-desc">Bouton primaire : Or Pyrénéen sur Noir. Secondaire : contour noir. Ghost : lien souligné. Toujours en MAJUSCULES Montserrat 700.</p>
+      <p class="component-desc">Bouton primaire : Or Pyrénéen sur Noir. Secondaire : contour noir. Ghost : lien souligné. Toujours en MAJUSCULES.</p>
     </div>
 
     <div class="component-card">
@@ -1261,10 +1414,10 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 05 TON DE VOIX ============ -->
+<!-- ============ 06 TON DE VOIX ============ -->
 <section id="voix">
   <div class="section-header">
-    <div class="section-number">05</div>
+    <div class="section-number">06</div>
     <h2 class="section-title">Ton<br>de voix</h2>
   </div>
 
@@ -1318,10 +1471,10 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 06 DO/DON'T ============ -->
+<!-- ============ 07 DO/DON'T ============ -->
 <section id="regles">
   <div class="section-header">
-    <div class="section-number">06</div>
+    <div class="section-number">07</div>
     <h2 class="section-title">Règles<br>d'usage</h2>
   </div>
 
@@ -1353,14 +1506,14 @@ footer p + p {
   </div>
 </section>
 
-<!-- ============ 07 CSS ============ -->
+<!-- ============ 08 CSS ============ -->
 <section id="code">
   <div class="section-header">
-    <div class="section-number">07</div>
+    <div class="section-number">08</div>
     <h2 class="section-title">Variables<br>CSS</h2>
   </div>
 
-  <p style="color:var(--gris-clair);max-width:700px;margin-bottom:2rem;">Bloc prêt à coller dans le projet web. Inclut couleurs primaires, étiquettes, saisons, typographies, espaces et ombres.</p>
+  <p style="color:var(--gris-clair);max-width:700px;margin-bottom:2rem;">Bloc prêt à coller dans le projet web. Inclut couleurs primaires, étiquettes, saisons, typographies.</p>
 
   <div class="code-block">
     <div class="code-header">
@@ -1396,6 +1549,7 @@ footer p + p {
 <span class="token-var">--hiver</span>: <span class="token-value">#A83828</span>;
 
 <span class="token-comment">/* Typographies */</span>
+<span class="token-comment">/* Logo officiel : Gotham Bold (propriétaire Hoefler) */</span>
 <span class="token-var">--font-display</span>: <span class="token-value">'Anton', 'Oswald', sans-serif</span>;
 <span class="token-var">--font-heading</span>: <span class="token-value">'Montserrat', sans-serif</span>;
 <span class="token-var">--font-body</span>: <span class="token-value">'Inter', sans-serif</span>;</pre>
@@ -1404,16 +1558,15 @@ footer p + p {
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  <div class="logo-mountains">⛰⛰⛰</div>
+  <img class="footer-logo" src="logos/logo-blason-blanc-transparent.png" alt="Brasserie du Vénasque">
   <p>Brasserie du Vénasque</p>
   <p>3 rue Sous Baylo · 31110 Montauban-de-Luchon</p>
-  <p>Design System v1.0 · Mai 2026</p>
+  <p>Design System v1.2 · Mai 2026</p>
 </footer>
 
 <div class="toast" id="toast">Code couleur copié !</div>
 
 <script>
-// Copy color cards
 document.querySelectorAll('.color-card, .beer-card').forEach(card => {
   card.addEventListener('click', () => {
     const hex = card.getAttribute('data-hex');
@@ -1427,7 +1580,6 @@ document.querySelectorAll('.color-card, .beer-card').forEach(card => {
   });
 });
 
-// Copy full CSS block
 function copyCSS() {
   const code = document.getElementById('css-code').innerText;
   const wrapped = ':root {\n' + code.split('\n').map(l => '  ' + l).join('\n') + '\n}';
@@ -1442,7 +1594,6 @@ function copyCSS() {
   });
 }
 
-// Toast
 function showToast(message) {
   const toast = document.getElementById('toast');
   toast.textContent = message;
