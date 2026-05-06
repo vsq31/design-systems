@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — Brasserie du Vénasque</title>
+<meta name="description" content="Design System officiel de la Brasserie du Vénasque — Brasserie artisanale au cœur des Pyrénées, Pays de Luchon.">
+
+<!-- Google Fonts : Anton (display), Montserrat (heading), Inter (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* Couleurs principales */
+  --noir: #0A0A0A;
+  --noir-doux: #1A1A1A;
+  --or: #F0B414;
+  --or-profond: #DCA014;
+  --blanc: #FFFFFF;
+  --blanc-casse: #FAF7F0;
+  --gris: #4A4A4A;
+  --gris-clair: #B8B5AC;
+  --bordure: #2A2A2A;
+
+  /* Couleurs étiquettes */
+  --brams: #E8A82C;
+  --bourek: #9DBE5A;
+  --mouflon: #A0552B;
+  --louva: #C0C0C0;
+  --lynx: #3A9BCB;
+  --aigle: #E84E1B;
+  --izard: #1E9170;
+  --arrian: #9E2A2B;
+  --marmotte: #E8B0BC;
+  --trueita: #7AC4C8;
+  --mesange: #F0E8B0;
+  --opa-blonde: #E8C896;
+  --opa-ambree: #E89478;
+
+  /* Couleurs saisonnières */
+  --printemps: #9CC95C;
+  --ete: #E8748C;
+  --automne: #D89020;
+  --hiver: #A83828;
+
+  /* Typographies */
+  --font-display: 'Anton', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--noir);
+  color: var(--blanc);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============ HEADER / HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 4rem 6vw;
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(240, 180, 20, 0.08) 0%, transparent 50%),
+    var(--noir);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(135deg, transparent 0, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px);
+  pointer-events: none;
+}
+
+.hero-mark {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 14vw, 12rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--blanc);
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 .accent {
+  color: var(--or);
+  display: block;
+}
+
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gris-clair);
+  max-width: 600px;
+  margin-bottom: 4rem;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 3rem;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gris-clair);
+  border-top: 1px solid var(--bordure);
+  padding-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-meta span strong {
+  display: block;
+  color: var(--blanc);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+/* Mountain decoration */
+.hero-mountains {
+  position: absolute;
+  bottom: 0;
+  right: -5%;
+  width: 600px;
+  max-width: 60%;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* ============ NAVIGATION ============ */
+.nav {
+  position: sticky;
+  top: 0;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--bordure);
+  z-index: 100;
+  padding: 1rem 6vw;
+}
+
+.nav-inner {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav a {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gris-clair);
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 600;
+  transition: color 0.2s;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--or);
+  border-bottom-color: var(--or);
+}
+
+/* ============ SECTIONS ============ */
+section {
+  padding: 6rem 6vw;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.section-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: var(--or);
+  line-height: 1;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.section-subtitle {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gris-clair);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* ============ IDENTITÉ ============ */
+.identity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.identity-card {
+  border-left: 3px solid var(--or);
+  padding-left: 2rem;
+}
+
+.identity-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.identity-card p {
+  color: var(--gris-clair);
+  font-size: 0.95rem;
+}
+
+/* ============ PALETTE COULEURS ============ */
+.palette-primary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.color-card {
+  aspect-ratio: 4/5;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border: 1px solid var(--bordure);
+}
+
+.color-card:hover {
+  transform: translateY(-4px);
+}
+
+.color-card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem;
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%);
+}
+
+.color-card.light .color-card-info {
+  background: linear-gradient(0deg, rgba(255,255,255,0.95) 0%, transparent 100%);
+  color: var(--noir);
+}
+
+.color-card-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  color: var(--blanc);
+}
+
+.color-card.light .color-card-name {
+  color: var(--noir);
+}
+
+.color-card-hex {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: var(--gris-clair);
+  letter-spacing: 0.05em;
+}
+
+.color-card.light .color-card-hex {
+  color: var(--gris);
+}
+
+.color-card-copy {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.1);
+  padding: 0.4rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.2);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 600;
+  color: var(--blanc);
+}
+
+.color-card.light .color-card-copy {
+  background: rgba(0,0,0,0.1);
+  border-color: rgba(0,0,0,0.2);
+  color: var(--noir);
+}
+
+.color-card:hover .color-card-copy {
+  opacity: 1;
+}
+
+.color-card.copied .color-card-copy {
+  opacity: 1;
+  background: var(--or);
+  color: var(--noir);
+  border-color: var(--or);
+}
+
+/* Bières & saisons */
+.beer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.beer-card {
+  aspect-ratio: 1;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.beer-card:hover {
+  transform: scale(1.04);
+}
+
+.beer-card-content {
+  width: 100%;
+}
+
+.beer-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--noir);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.beer-card.dark .beer-name { color: var(--blanc); }
+
+.beer-style {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.75;
+  color: var(--noir);
+}
+
+.beer-card.dark .beer-style { color: var(--blanc); }
+
+.beer-hex {
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  opacity: 0.6;
+  color: var(--noir);
+}
+
+.beer-card.dark .beer-hex { color: var(--blanc); }
+
+/* ============ TYPOGRAPHIES ============ */
+.typo-block {
+  background: var(--noir-doux);
+  border: 1px solid var(--bordure);
+  padding: 3rem 2.5rem;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+  position: relative;
+}
+
+.typo-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.typo-label-name {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--or);
+  font-weight: 700;
+}
+
+.typo-label-meta {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: var(--gris-clair);
+}
+
+.typo-display {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--blanc);
+  margin-bottom: 0.5rem;
+}
+
+.typo-heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--blanc);
+  margin-bottom: 0.5rem;
+}
+
+.typo-body {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--gris-clair);
+  max-width: 700px;
+}
+
+.typo-scale-table {
+  width: 100%;
+  margin-top: 2rem;
+  border-collapse: collapse;
+}
+
+.typo-scale-table th {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--or);
+  text-align: left;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--bordure);
+  font-weight: 700;
+}
+
+.typo-scale-table td {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--bordure);
+  font-size: 0.9rem;
+  color: var(--gris-clair);
+}
+
+.typo-scale-table td:first-child {
+  color: var(--blanc);
+  font-weight: 500;
+}
+
+/* ============ COMPOSANTS ============ */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.component-card {
+  background: var(--noir-doux);
+  border: 1px solid var(--bordure);
+  padding: 2rem;
+  border-radius: 4px;
+}
+
+.component-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.component-preview {
+  background: var(--blanc-casse);
+  padding: 2rem;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 180px;
+}
+
+/* Bandeau étiquette signature */
+.label-banner {
+  background: var(--noir);
+  padding: 1.25rem 2rem;
+  width: 100%;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.label-banner-name {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--blanc);
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.label-banner-style {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  color: var(--gris-clair);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 0.4rem;
+}
+
+/* Boutons */
+.btn {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+}
+
+.btn-primary {
+  background: var(--or);
+  color: var(--noir);
+}
+
+.btn-primary:hover {
+  background: var(--or-profond);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--noir);
+  border: 2px solid var(--noir);
+}
+
+.btn-secondary:hover {
+  background: var(--noir);
+  color: var(--blanc);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--noir);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Pavé Pays de Luchon */
+.luchon-tag {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--noir);
+  border: 1px solid var(--noir);
+  padding: 0.6rem 1.2rem;
+  display: inline-block;
+}
+
+/* Carte produit mini */
+.product-card {
+  background: var(--noir);
+  padding: 1.5rem;
+  border-radius: 3px;
+  width: 100%;
+  max-width: 240px;
+  text-align: center;
+  position: relative;
+}
+
+.product-card-bottle {
+  width: 70px;
+  height: 110px;
+  background: linear-gradient(180deg, #6B4423 0%, #4A2F18 100%);
+  margin: 0 auto 1rem;
+  border-radius: 4px 4px 8px 8px;
+  position: relative;
+}
+
+.product-card-label {
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
+  right: 5px;
+  background: var(--aigle);
+  height: 50px;
+  border-radius: 2px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.product-card-label-text {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  color: var(--blanc);
+  background: var(--noir);
+  padding: 1px 6px;
+  border-radius: 1px;
+}
+
+.product-card-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--blanc);
+  text-transform: uppercase;
+}
+
+.product-card-meta {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  color: var(--or);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+.component-desc {
+  font-size: 0.9rem;
+  color: var(--gris-clair);
+  font-family: var(--font-body);
+}
+
+/* ============ TON DE VOIX ============ */
+.voice-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  line-height: 1.2;
+  color: var(--blanc);
+  border-left: 4px solid var(--or);
+  padding-left: 2rem;
+  margin: 2rem 0;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.voice-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.voice-tag {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  background: var(--noir-doux);
+  border: 1px solid var(--bordure);
+  border-radius: 100px;
+  color: var(--gris-clair);
+  font-weight: 600;
+}
+
+.voice-tag.primary {
+  background: var(--or);
+  color: var(--noir);
+  border-color: var(--or);
+}
+
+/* ============ DO/DON'T ============ */
+.dodont-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.dodont-card {
+  padding: 2rem;
+  border-radius: 4px;
+  border: 1px solid var(--bordure);
+}
+
+.dodont-card.do {
+  background: rgba(30, 145, 112, 0.08);
+  border-color: rgba(30, 145, 112, 0.3);
+}
+
+.dodont-card.dont {
+  background: rgba(232, 78, 27, 0.08);
+  border-color: rgba(232, 78, 27, 0.3);
+}
+
+.dodont-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dodont-title.do { color: #4FBE8E; }
+.dodont-title.dont { color: var(--aigle); }
+
+.dodont-list {
+  list-style: none;
+}
+
+.dodont-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--bordure);
+  font-size: 0.9rem;
+  color: var(--gris-clair);
+}
+
+.dodont-list li:last-child { border-bottom: none; }
+
+/* ============ CSS VARS ============ */
+.code-block {
+  background: var(--noir-doux);
+  border: 1px solid var(--bordure);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--bordure);
+  background: var(--noir);
+}
+
+.code-header span {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--or);
+  font-weight: 700;
+}
+
+.code-copy-btn {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--blanc);
+  border: 1px solid var(--bordure);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.code-copy-btn:hover {
+  background: var(--or);
+  color: var(--noir);
+  border-color: var(--or);
+}
+
+.code-copy-btn.copied {
+  background: #1E9170;
+  color: var(--blanc);
+  border-color: #1E9170;
+}
+
+.code-block pre {
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--gris-clair);
+}
+
+.code-block pre .token-comment { color: #6A9955; }
+.code-block pre .token-var { color: var(--or); }
+.code-block pre .token-value { color: #CE9178; }
+
+/* ============ FOOTER ============ */
+footer {
+  border-top: 1px solid var(--bordure);
+  padding: 4rem 6vw;
+  text-align: center;
+  color: var(--gris-clair);
+}
+
+footer .logo-mountains {
+  font-size: 2.5rem;
+  color: var(--or);
+  letter-spacing: -0.1em;
+  margin-bottom: 1rem;
+  font-family: var(--font-display);
+}
+
+footer p {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+footer p + p {
+  margin-top: 0.5rem;
+  color: var(--gris);
+}
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--or);
+  color: var(--noir);
+  padding: 1rem 2rem;
+  border-radius: 2px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.toast.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  section { padding: 4rem 5vw; }
+  .hero { padding: 3rem 5vw; }
+  .section-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+  .hero-meta { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-mark">⛰ Design System v1.0 — Mai 2026</div>
+  <h1>
+    Brasserie<br>
+    du<br>
+    <span class="accent">Vénasque</span>
+  </h1>
+  <p class="hero-tagline">Bières & Limonades Artisanales — Pays de Luchon — Au cœur des Pyrénées</p>
+  <div class="hero-meta">
+    <span>Fondée<strong>Décembre 2015</strong></span>
+    <span>Production<strong>1000 HL Bières · 200 HL Limonades (2025)</strong></span>
+    <span>Équipe<strong>5 personnes + 1 externe</strong></span>
+    <span>Localisation<strong>Montauban-de-Luchon · 31110</strong></span>
+  </div>
+</header>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#identite">01 — Identité</a>
+    <a href="#palette">02 — Palette</a>
+    <a href="#typo">03 — Typographies</a>
+    <a href="#composants">04 — Composants</a>
+    <a href="#voix">05 — Ton de voix</a>
+    <a href="#regles">06 — Do / Don't</a>
+    <a href="#code">07 — CSS Variables</a>
+  </div>
+</nav>
+
+<!-- ============ 01 IDENTITÉ ============ -->
+<section id="identite">
+  <div class="section-header">
+    <div class="section-number">01</div>
+    <h2 class="section-title">Identité<br>de marque</h2>
+  </div>
+
+  <div class="identity-grid">
+    <div class="identity-card">
+      <h3>Authenticité Pyrénéenne</h3>
+      <p>Ancrage local fort. Montagne, faune pyrénéenne, savoir-faire artisanal, eau de source du village comme matière première signature.</p>
+    </div>
+    <div class="identity-card">
+      <h3>Convivialité Refuge</h3>
+      <p>Esprit refuge, partage, après l'effort. On parle comme on accueillerait un randonneur qui pousse la porte de la boutique.</p>
+    </div>
+    <div class="identity-card">
+      <h3>Passion & Innovation</h3>
+      <p>Classiques (blondes, ambrées, brunes, blanches, lagers) ET recettes audacieuses (IPA, NEIPA, Stout, Triple, bières épicées).</p>
+    </div>
+    <div class="identity-card">
+      <h3>Faune Pyrénéenne</h3>
+      <p>Chaque bière arbore un animal local sur son étiquette. Mouflon, Lynx, Aigle Royal, Izard, Marmotte, Mésange — élément distinctif clé.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 PALETTE ============ -->
+<section id="palette">
+  <div class="section-header">
+    <div class="section-number">02</div>
+    <h2 class="section-title">Palette<br>de couleurs</h2>
+  </div>
+
+  <div class="section-subtitle">Couleurs primaires — Charte signature</div>
+  <div class="palette-primary">
+    <div class="color-card" style="background:#0A0A0A;" data-hex="#0A0A0A">
+      <div class="color-card-copy">Copier</div>
+      <div class="color-card-info">
+        <div class="color-card-name">Noir Vénasque</div>
+        <div class="color-card-hex">#0A0A0A</div>
+      </div>
+    </div>
+    <div class="color-card" style="background:#F0B414;" data-hex="#F0B414">
+      <div class="color-card-copy" style="color:#0A0A0A;border-color:rgba(0,0,0,0.2);background:rgba(0,0,0,0.1);">Copier</div>
+      <div class="color-card-info" style="background:linear-gradient(0deg,rgba(0,0,0,0.5),transparent);">
+        <div class="color-card-name">Or Pyrénéen</div>
+        <div class="color-card-hex" style="color:rgba(255,255,255,0.85);">#F0B414</div>
+      </div>
+    </div>
+    <div class="color-card" style="background:#DCA014;" data-hex="#DCA014">
+      <div class="color-card-copy" style="color:#0A0A0A;border-color:rgba(0,0,0,0.2);background:rgba(0,0,0,0.1);">Copier</div>
+      <div class="color-card-info" style="background:linear-gradient(0deg,rgba(0,0,0,0.5),transparent);">
+        <div class="color-card-name">Or Profond</div>
+        <div class="color-card-hex" style="color:rgba(255,255,255,0.85);">#DCA014</div>
+      </div>
+    </div>
+    <div class="color-card light" style="background:#FFFFFF;" data-hex="#FFFFFF">
+      <div class="color-card-copy">Copier</div>
+      <div class="color-card-info">
+        <div class="color-card-name">Blanc Source</div>
+        <div class="color-card-hex">#FFFFFF</div>
+      </div>
+    </div>
+    <div class="color-card light" style="background:#FAF7F0;" data-hex="#FAF7F0">
+      <div class="color-card-copy">Copier</div>
+      <div class="color-card-info">
+        <div class="color-card-name">Blanc Cassé</div>
+        <div class="color-card-hex">#FAF7F0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-subtitle" style="margin-top: 4rem;">Couleurs étiquettes — Une couleur signature par bière</div>
+  <div class="beer-grid">
+    <div class="beer-card" style="background:#E8A82C;" data-hex="#E8A82C">
+      <div class="beer-card-content">
+        <div class="beer-name">Bram's</div>
+        <div class="beer-style">Blonde 5%</div>
+        <div class="beer-hex">#E8A82C</div>
+      </div>
+    </div>
+    <div class="beer-card" style="background:#9DBE5A;" data-hex="#9DBE5A">
+      <div class="beer-card-content">
+        <div class="beer-name">Bourek</div>
+        <div class="beer-style">Ambrée 5%</div>
+        <div class="beer-hex">#9DBE5A</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#A0552B;" data-hex="#A0552B">
+      <div class="beer-card-content">
+        <div class="beer-name">Mouflon</div>
+        <div class="beer-style">Brune 4%</div>
+        <div class="beer-hex">#A0552B</div>
+      </div>
+    </div>
+    <div class="beer-card" style="background:#C0C0C0;" data-hex="#C0C0C0">
+      <div class="beer-card-content">
+        <div class="beer-name">Louva</div>
+        <div class="beer-style">Blanche 4.5%</div>
+        <div class="beer-hex">#C0C0C0</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#3A9BCB;" data-hex="#3A9BCB">
+      <div class="beer-card-content">
+        <div class="beer-name">Lynx</div>
+        <div class="beer-style">Ambrée 5%</div>
+        <div class="beer-hex">#3A9BCB</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#E84E1B;" data-hex="#E84E1B">
+      <div class="beer-card-content">
+        <div class="beer-name">Aigle Royal</div>
+        <div class="beer-style">Ambrée 7%</div>
+        <div class="beer-hex">#E84E1B</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#1E9170;" data-hex="#1E9170">
+      <div class="beer-card-content">
+        <div class="beer-name">Izard</div>
+        <div class="beer-style">Blonde Bio 5%</div>
+        <div class="beer-hex">#1E9170</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#9E2A2B;" data-hex="#9E2A2B">
+      <div class="beer-card-content">
+        <div class="beer-name">Arrian</div>
+        <div class="beer-style">Triple 8.5%</div>
+        <div class="beer-hex">#9E2A2B</div>
+      </div>
+    </div>
+    <div class="beer-card" style="background:#E8B0BC;" data-hex="#E8B0BC">
+      <div class="beer-card-content">
+        <div class="beer-name">Marmotte</div>
+        <div class="beer-style">Milkshake IPA 4.5%</div>
+        <div class="beer-hex">#E8B0BC</div>
+      </div>
+    </div>
+    <div class="beer-card" style="background:#7AC4C8;" data-hex="#7AC4C8">
+      <div class="beer-card-content">
+        <div class="beer-name">Trueita</div>
+        <div class="beer-style">Lager 5%</div>
+        <div class="beer-hex">#7AC4C8</div>
+      </div>
+    </div>
+    <div class="beer-card" style="background:#F0E8B0;" data-hex="#F0E8B0">
+      <div class="beer-card-content">
+        <div class="beer-name">Mésange</div>
+        <div class="beer-style">Sans Alcool 0.5%</div>
+        <div class="beer-hex">#F0E8B0</div>
+      </div>
+    </div>
+    <div class="beer-card" style="background:#E8C896;" data-hex="#E8C896">
+      <div class="beer-card-content">
+        <div class="beer-name">OPA Blonde</div>
+        <div class="beer-style">Blonde IPA 5%</div>
+        <div class="beer-hex">#E8C896</div>
+      </div>
+    </div>
+    <div class="beer-card" style="background:#E89478;" data-hex="#E89478">
+      <div class="beer-card-content">
+        <div class="beer-name">OPA Ambrée</div>
+        <div class="beer-style">Pale Ale 6%</div>
+        <div class="beer-hex">#E89478</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-subtitle" style="margin-top: 4rem;">Couleurs saisonnières</div>
+  <div class="beer-grid">
+    <div class="beer-card" style="background:#9CC95C;" data-hex="#9CC95C">
+      <div class="beer-card-content">
+        <div class="beer-name">Printemps</div>
+        <div class="beer-style">Session IPA 4.2%</div>
+        <div class="beer-hex">#9CC95C</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#E8748C;" data-hex="#E8748C">
+      <div class="beer-card-content">
+        <div class="beer-name">Été</div>
+        <div class="beer-style">Blanche fruitée 4%</div>
+        <div class="beer-hex">#E8748C</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#D89020;" data-hex="#D89020">
+      <div class="beer-card-content">
+        <div class="beer-name">Automne</div>
+        <div class="beer-style">Blonde Miel 7%</div>
+        <div class="beer-hex">#D89020</div>
+      </div>
+    </div>
+    <div class="beer-card dark" style="background:#A83828;" data-hex="#A83828">
+      <div class="beer-card-content">
+        <div class="beer-name">Hiver</div>
+        <div class="beer-style">Ambrée épicée 5%</div>
+        <div class="beer-hex">#A83828</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 TYPOGRAPHIES ============ -->
+<section id="typo">
+  <div class="section-header">
+    <div class="section-number">03</div>
+    <h2 class="section-title">Typo-<br>graphies</h2>
+  </div>
+
+  <div class="typo-block">
+    <div class="typo-label">
+      <span class="typo-label-name">Display · Titres principaux</span>
+      <span class="typo-label-meta">ANTON / 700 / UPPERCASE</span>
+    </div>
+    <div class="typo-display">Bières<br>Pyrénéennes</div>
+    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Sans-serif condensée, géométrique, capitales. Référence directe au mot-clé "VÉNASQUE" du logo. Réservée aux titres impactants : H1, H2, accroches PLV, noms de bières.</p>
+  </div>
+
+  <div class="typo-block">
+    <div class="typo-label">
+      <span class="typo-label-name">Heading · Sous-titres et labels</span>
+      <span class="typo-label-meta">MONTSERRAT / 600 / UPPERCASE</span>
+    </div>
+    <div class="typo-heading">Bière Ambrée Houblonnée — Pays de Luchon</div>
+    <p style="color:var(--gris-clair);font-size:0.9rem;max-width:600px;">Sans-serif géométrique, lisible. Pour les sous-titres d'étiquettes, mentions légales, labels de boutons, navigation.</p>
+  </div>
+
+  <div class="typo-block">
+    <div class="typo-label">
+      <span class="typo-label-name">Body · Texte courant</span>
+      <span class="typo-label-meta">INTER / 400 / SENTENCE CASE</span>
+    </div>
+    <p class="typo-body">Brassée à l'eau de source du village de Montauban-de-Luchon, la gamme de bières de la Brasserie du Vénasque arbore fièrement les animaux locaux sur ses étiquettes en rappel de la richesse de la faune pyrénéenne. Chaque produit est le fruit d'une passion pour l'authenticité et la créativité.</p>
+  </div>
+
+  <table class="typo-scale-table">
+    <thead>
+      <tr>
+        <th>Élément</th>
+        <th>Police</th>
+        <th>Poids</th>
+        <th>Desktop</th>
+        <th>Mobile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>H1</td><td>Anton</td><td>700</td><td>64px</td><td>40px</td></tr>
+      <tr><td>H2</td><td>Anton</td><td>700</td><td>48px</td><td>32px</td></tr>
+      <tr><td>H3</td><td>Anton</td><td>700</td><td>32px</td><td>24px</td></tr>
+      <tr><td>Sous-titre / H4</td><td>Montserrat</td><td>600</td><td>20px</td><td>18px</td></tr>
+      <tr><td>Corps</td><td>Inter</td><td>400</td><td>16px</td><td>16px</td></tr>
+      <tr><td>Légende</td><td>Inter</td><td>400</td><td>14px</td><td>14px</td></tr>
+      <tr><td>Bouton CTA</td><td>Montserrat</td><td>700</td><td>16px</td><td>16px</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 04 COMPOSANTS ============ -->
+<section id="composants">
+  <div class="section-header">
+    <div class="section-number">04</div>
+    <h2 class="section-title">Composants<br>signature</h2>
+  </div>
+
+  <div class="component-grid">
+    <div class="component-card">
+      <div class="component-label">Bandeau étiquette</div>
+      <div class="component-preview">
+        <div class="label-banner">
+          <div class="label-banner-name">Aigle Royal</div>
+          <div class="label-banner-style">Bière Ambrée Houblonnée</div>
+        </div>
+      </div>
+      <p class="component-desc">Élément récurrent : bandeau noir profond, nom de bière en Anton blanc, sous-titre en Montserrat clair. Signature visuelle des étiquettes.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-label">Boutons d'action</div>
+      <div class="component-preview" style="flex-direction:column;gap:1rem;">
+        <a href="#" class="btn btn-primary">Découvrir la gamme</a>
+        <a href="#" class="btn btn-secondary">En savoir plus</a>
+        <a href="#" class="btn btn-ghost">Contactez-nous →</a>
+      </div>
+      <p class="component-desc">Bouton primaire : Or Pyrénéen sur Noir. Secondaire : contour noir. Ghost : lien souligné. Toujours en MAJUSCULES Montserrat 700.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-label">Pavé Pays de Luchon</div>
+      <div class="component-preview">
+        <span class="luchon-tag">Produit du Pays de Luchon</span>
+      </div>
+      <p class="component-desc">Mention systématique sur tous les supports produits. Présente sur 100% des étiquettes de la gamme. Marqueur d'origine signature.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-label">Carte produit miniature</div>
+      <div class="component-preview">
+        <div class="product-card">
+          <div class="product-card-bottle">
+            <div class="product-card-label">
+              <div class="product-card-label-text">Aigle Royal</div>
+            </div>
+          </div>
+          <div class="product-card-name">Aigle Royal</div>
+          <div class="product-card-meta">Ambrée · 7% · 33cl</div>
+        </div>
+      </div>
+      <p class="component-desc">Format type pour grilles produits sur site web et fiches commerciales B2B.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 TON DE VOIX ============ -->
+<section id="voix">
+  <div class="section-header">
+    <div class="section-number">05</div>
+    <h2 class="section-title">Ton<br>de voix</h2>
+  </div>
+
+  <p class="voice-quote">
+    "Chaleureux, sincère, sans prétention. On parle comme on accueillerait un randonneur qui pousse la porte de la boutique après une journée en montagne."
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;margin-top:4rem;">
+    <div>
+      <div class="section-subtitle">Vocabulaire signature</div>
+      <div class="voice-tags">
+        <span class="voice-tag primary">Pays de Luchon</span>
+        <span class="voice-tag">Au cœur des Pyrénées</span>
+        <span class="voice-tag">Eau de source</span>
+        <span class="voice-tag">Faune pyrénéenne</span>
+        <span class="voice-tag">Artisanale</span>
+        <span class="voice-tag">Savoir-faire</span>
+        <span class="voice-tag">Refuge</span>
+        <span class="voice-tag">Après l'effort</span>
+        <span class="voice-tag">Convivialité</span>
+        <span class="voice-tag">Terroir</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-subtitle">À éviter absolument</div>
+      <div class="voice-tags">
+        <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Venasque (Vaucluse)</span>
+        <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Provence</span>
+        <span class="voice-tag" style="border-color:var(--aigle);color:var(--aigle);">⚠ Lavande</span>
+        <span class="voice-tag">Ton corporate</span>
+        <span class="voice-tag">Jargon élitiste</span>
+        <span class="voice-tag">Marketing creux</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:4rem;">
+    <div class="component-card">
+      <div class="component-label">B2C Particuliers</div>
+      <p style="color:var(--gris-clair);font-size:0.95rem;">Complice, chaleureux, saisonnier. Newsletters mensuelles, posts réseaux, boutique.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-label">B2B Pros (CHR, cavistes)</div>
+      <p style="color:var(--gris-clair);font-size:0.95rem;">Structuré, utile, factuel. Newsletters bimensuelles, dispo fûts, animations.</p>
+    </div>
+    <div class="component-card">
+      <div class="component-label">Prospection</div>
+      <p style="color:var(--gris-clair);font-size:0.95rem;">Accrocheur, valorise le local et la qualité. Cavistes indépendants, CHR taille moyenne.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 DO/DON'T ============ -->
+<section id="regles">
+  <div class="section-header">
+    <div class="section-number">06</div>
+    <h2 class="section-title">Règles<br>d'usage</h2>
+  </div>
+
+  <div class="dodont-grid">
+    <div class="dodont-card do">
+      <div class="dodont-title do">✓ À faire</div>
+      <ul class="dodont-list">
+        <li>Mettre en valeur l'ancrage pyrénéen (Pays de Luchon, Comminges)</li>
+        <li>Mentionner l'animal pyrénéen quand on parle d'une bière</li>
+        <li>Utiliser le noir profond comme fond signature</li>
+        <li>Réserver l'Or Pyrénéen aux accroches et CTA</li>
+        <li>Garder les illustrations en outline blanc sur fond noir</li>
+        <li>Écrire VÉNASQUE avec son accent aigu, en majuscules</li>
+        <li>Privilégier les photos en lumière naturelle, esprit refuge</li>
+      </ul>
+    </div>
+    <div class="dodont-card dont">
+      <div class="dodont-title dont">✗ À ne pas faire</div>
+      <ul class="dodont-list">
+        <li>Utiliser "Venasque" sans accent ou évoquer la Provence/Vaucluse</li>
+        <li>Mélanger plusieurs polices condensées différentes</li>
+        <li>Surcharger les visuels — l'élégance vient de l'espace</li>
+        <li>Utiliser des couleurs criardes hors palette</li>
+        <li>Faire des photos trop "premium / luxe"</li>
+        <li>Photos stock génériques de bière</li>
+        <li>Mises en scène trop léchées / studio</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 CSS ============ -->
+<section id="code">
+  <div class="section-header">
+    <div class="section-number">07</div>
+    <h2 class="section-title">Variables<br>CSS</h2>
+  </div>
+
+  <p style="color:var(--gris-clair);max-width:700px;margin-bottom:2rem;">Bloc prêt à coller dans le projet web. Inclut couleurs primaires, étiquettes, saisons, typographies, espaces et ombres.</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span>:root — Brasserie du Vénasque</span>
+      <button class="code-copy-btn" onclick="copyCSS()">Copier le code</button>
+    </div>
+    <pre id="css-code"><span class="token-comment">/* Couleurs principales */</span>
+<span class="token-var">--noir</span>: <span class="token-value">#0A0A0A</span>;
+<span class="token-var">--or</span>: <span class="token-value">#F0B414</span>;
+<span class="token-var">--or-profond</span>: <span class="token-value">#DCA014</span>;
+<span class="token-var">--blanc</span>: <span class="token-value">#FFFFFF</span>;
+<span class="token-var">--blanc-casse</span>: <span class="token-value">#FAF7F0</span>;
+
+<span class="token-comment">/* Couleurs étiquettes */</span>
+<span class="token-var">--brams</span>: <span class="token-value">#E8A82C</span>;
+<span class="token-var">--bourek</span>: <span class="token-value">#9DBE5A</span>;
+<span class="token-var">--mouflon</span>: <span class="token-value">#A0552B</span>;
+<span class="token-var">--louva</span>: <span class="token-value">#C0C0C0</span>;
+<span class="token-var">--lynx</span>: <span class="token-value">#3A9BCB</span>;
+<span class="token-var">--aigle</span>: <span class="token-value">#E84E1B</span>;
+<span class="token-var">--izard</span>: <span class="token-value">#1E9170</span>;
+<span class="token-var">--arrian</span>: <span class="token-value">#9E2A2B</span>;
+<span class="token-var">--marmotte</span>: <span class="token-value">#E8B0BC</span>;
+<span class="token-var">--trueita</span>: <span class="token-value">#7AC4C8</span>;
+<span class="token-var">--mesange</span>: <span class="token-value">#F0E8B0</span>;
+<span class="token-var">--opa-blonde</span>: <span class="token-value">#E8C896</span>;
+<span class="token-var">--opa-ambree</span>: <span class="token-value">#E89478</span>;
+
+<span class="token-comment">/* Couleurs saisonnières */</span>
+<span class="token-var">--printemps</span>: <span class="token-value">#9CC95C</span>;
+<span class="token-var">--ete</span>: <span class="token-value">#E8748C</span>;
+<span class="token-var">--automne</span>: <span class="token-value">#D89020</span>;
+<span class="token-var">--hiver</span>: <span class="token-value">#A83828</span>;
+
+<span class="token-comment">/* Typographies */</span>
+<span class="token-var">--font-display</span>: <span class="token-value">'Anton', 'Oswald', sans-serif</span>;
+<span class="token-var">--font-heading</span>: <span class="token-value">'Montserrat', sans-serif</span>;
+<span class="token-var">--font-body</span>: <span class="token-value">'Inter', sans-serif</span>;</pre>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="logo-mountains">⛰⛰⛰</div>
+  <p>Brasserie du Vénasque</p>
+  <p>3 rue Sous Baylo · 31110 Montauban-de-Luchon</p>
+  <p>Design System v1.0 · Mai 2026</p>
+</footer>
+
+<div class="toast" id="toast">Code couleur copié !</div>
+
+<script>
+// Copy color cards
+document.querySelectorAll('.color-card, .beer-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const hex = card.getAttribute('data-hex');
+    if (hex) {
+      navigator.clipboard.writeText(hex).then(() => {
+        showToast(hex + ' copié !');
+        card.classList.add('copied');
+        setTimeout(() => card.classList.remove('copied'), 1500);
+      });
+    }
+  });
+});
+
+// Copy full CSS block
+function copyCSS() {
+  const code = document.getElementById('css-code').innerText;
+  const wrapped = ':root {\n' + code.split('\n').map(l => '  ' + l).join('\n') + '\n}';
+  navigator.clipboard.writeText(wrapped).then(() => {
+    const btn = document.querySelector('.code-copy-btn');
+    btn.textContent = '✓ Copié !';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copier le code';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Toast
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 1800);
+}
+</script>
+
+</body>
+</html>
